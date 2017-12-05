@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WeWant2Cook</string>
+    <string name="recipes">Recetas</string>
+    <string name="shoppingList">Lista de la compra</string>
 </resources>
