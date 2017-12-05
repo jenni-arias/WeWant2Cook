@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">WeWant2Cook</string>
+    <string name="app_name" translatable="false">WeWant2Cook</string>
     <string name="recipes">Recetas</string>
     <string name="shoppingList">Lista de la compra</string>
+    <string name="share">Compartir</string>
 </resources>
