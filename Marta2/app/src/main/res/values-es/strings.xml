@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeWant2Cook</string>
+    <string name="Recipes">Recetas</string>
+    <string name="confirm">Confirmación</string>
+    <string name="confirm_message">Seguro que quiere eliminar \'%1$s\'?</string>
+    <string name="remove">Eliminar</string>
+    <string name="Ingredients">Ingredientes</string>
+</resources>
