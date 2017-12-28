@@ -1,4 +1,4 @@
 <resources>
     <string name="PreActivity">WeWant2Cook</string>
-    <string name="app_name">ShoppingList</string>
+    <string name="ShoppingList">Lista de la compra</string>
 </resources>

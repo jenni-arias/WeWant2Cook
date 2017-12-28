@@ -1,5 +1,6 @@
 package arias.jenifer.wewant2cook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -27,7 +28,8 @@ public class PreActivity extends AppCompatActivity {
         btn_nueva_lista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), WeWant2CookActivity.class);
+                startActivityForResult(intent, 0);
             }
         });
 
