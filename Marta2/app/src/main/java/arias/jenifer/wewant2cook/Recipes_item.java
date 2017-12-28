@@ -37,14 +37,7 @@ public class Recipes_item {
             this.checked=!this.checked;
         }
 
-        static public void goIngredients(String n){
-        // Anem a IngredientsActivity
-        Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
-        intent.putExtra("name",n);
-        //startActivityForResult(intent,0);
-            Log.i("Marta","Funció goIngredients");
-            Log.i("Marta",n);
-        }
+
 }
 
 

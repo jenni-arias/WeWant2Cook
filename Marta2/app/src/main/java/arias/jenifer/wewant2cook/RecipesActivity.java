@@ -96,11 +96,6 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-
-        // Enlace de RecipesActivity a IngredientsActivity
-        /*
-        Intent intent = getIntent();
-        String recipe_name = intent.getStringExtra("name");*/
     }
     private void add_r() {
 
@@ -118,19 +113,19 @@ public class RecipesActivity extends AppCompatActivity {
 
                 RecipesList.add(new Recipes_item (input.getText().toString(),false));
                 Log.i("Marta",input.getText().toString());
-                Recipes_item.goIngredients(input.getText().toString());
+                saveRecipe(input.getText().toString());
             }
         });
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.show();
     }
 
-    /*public void saveRecipe(String n){
+    public void saveRecipe(String n){
         // Anem a IngredientsActivity
         Intent intent = new Intent(this, IngredientsActivity.class);
         intent.putExtra("name",n);
         startActivityForResult(intent,0);
-    }*/
+    }
 
 
 
@@ -140,15 +135,14 @@ public class RecipesActivity extends AppCompatActivity {
         switch (requestCode){
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK){
-                    //String Recipe = data.getStringExtra("recipe");
-                    //RecipesList.add(new Recipes_item (Recipe,false));
-                    Log.i("Marta","OK TORNADA");
+                    String Recipe = data.getStringExtra("name");
+                    RecipesList.add(new Recipes_item (Recipe,false));
+                    Log.i("Tornada",Recipe);
                 }
         }
     }
     public static Context getAppContext(){
         return context;
     }
-    public Activity getAppActivity(){return RecipesActivity.this;}
 
     }

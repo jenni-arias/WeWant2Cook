@@ -20,7 +20,9 @@ import java.util.List;
  */
 
 public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
-    Activity activity;
+    //Activity activity;
+    static Context context=RecipesActivity.getAppContext();
+
 
     public RecipesAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
@@ -45,7 +47,8 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
             @Override
             public boolean onLongClick(View view) {
 
-                Recipes_item.goIngredients(item.getText());
+                //Recipes_item.goIngredients(item.getText());
+                saveRecipe(item.getText());
 
                 return true;
             }
@@ -54,13 +57,9 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
     }
 
     public void saveRecipe(String n){
-
-        activity=RecipesActivity.getAppActivity();
-
-
         // Anem a IngredientsActivity
-        Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
+        Intent intent = new Intent(context, IngredientsActivity.class);
         intent.putExtra("name",n);
-        activity.startActivityForResult(intent,0);
+        context.startActivity(intent);
     }
 }
