@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
 
         <!-- <activity android:name=".WeWant2CookActivity.ShoppingListActivity"> -->
-        <activity android:name=".ShoppingListActivity">
+        <activity android:name=".ShoppingListActivity"
+            android:label="@string/PreActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShoppingItem" />
+
     </application>
 
 </manifest>

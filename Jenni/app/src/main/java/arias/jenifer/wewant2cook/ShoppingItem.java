@@ -4,10 +4,10 @@ package arias.jenifer.wewant2cook;
 public class ShoppingItem {
 
     private String nombre;
-    private int cantidad;
+    private float cantidad;
     private String unidades;
 
-    public ShoppingItem(String nombre, int cantidad, String unidades) {
+    public ShoppingItem(String nombre, float cantidad, String unidades) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.unidades = unidades;
@@ -21,11 +21,11 @@ public class ShoppingItem {
         this.nombre = text;
     }
 
-    public int getCantidad() {
+    public float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(float cantidad) {
         this.cantidad = cantidad;
     }
 
