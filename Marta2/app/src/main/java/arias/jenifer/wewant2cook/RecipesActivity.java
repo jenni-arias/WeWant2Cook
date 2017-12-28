@@ -22,6 +22,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class RecipesActivity extends AppCompatActivity {
 
     private ArrayList<Recipes_item> RecipesList;
@@ -30,6 +31,7 @@ public class RecipesActivity extends AppCompatActivity {
     //private ArrayAdapter<String> recipes_adapter;
     private RecipesAdapter recipes_adapter;
     public static Context context;
+    private ArrayList<Recipes_item> lista;
 
 
 
@@ -135,9 +137,26 @@ public class RecipesActivity extends AppCompatActivity {
         switch (requestCode){
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK){
+                    // TODO rebre els ingredients i guardar-los a un String
                     String Recipe = data.getStringExtra("name");
+                    //String Ingredients = data.getStringExtra("ingredient");
+
+                    Bundle bundle = data.getBundleExtra("ingredient");
+
+                    lista = (ArrayList<Recipes_item>) data.getSerializableExtra("ingredient");
+
+
+                    //lista = (ArrayList<Recipes_item>) data.getSerializableExtra("ingredient");
+
                     RecipesList.add(new Recipes_item (Recipe,false));
+
+
                     Log.i("Tornada",Recipe);
+                    Log.i("Tornada", lista.size()+"");
+
+                   //Log.i("Print Items Count", lista.size()+"");
+
+
                 }
         }
     }

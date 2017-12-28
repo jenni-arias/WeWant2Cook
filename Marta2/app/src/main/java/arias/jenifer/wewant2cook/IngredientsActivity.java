@@ -21,9 +21,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO poder editar el títol del ActionBar amb el nom de la recipe seleccionada
 
 public class IngredientsActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
     private IngredientsAdapter ingredient_adapter;
     String v;
+    private ArrayList<Ingredients_item> lista;
 
 
    /* private ArrayList<String> IngredientsList;
@@ -103,9 +106,29 @@ public class IngredientsActivity extends AppCompatActivity {
         switch ((item.getItemId())) {
             case R.id.action_settings:
                 // Anem a RecipesActivity
+                int i =0;
+                //lista = new ArrayList<>();
                 Intent data = new Intent();
                 data.putExtra("name",recipe_name);
-                setResult(RESULT_OK, data);
+                Bundle bundle = new Bundle();
+
+
+                    while (i<IngredientsList.size()){
+                        Log.i("Intent",IngredientsList.get(i).getText());
+                        Log.i("Intent",IngredientsList.size()+"");
+                    //lista.add(new Ingredients_item(IngredientsList.get(i).getText(),IngredientsList.get(i).getUnits(), IngredientsList.get(i).getNumber()));
+                        bundle.putSerializable("ingredient", IngredientsList.get(i).getText());
+                        //data.putExtras(bundle);
+                        setResult(RESULT_OK, data.putExtras(bundle));
+                        i+=1;
+
+                    }
+                //ArrayList<Spanned> passwords = search.getResult();
+
+
+
+               // data.putExtra("ingredient",(Serializable)IngredientsList);
+                //setResult(RESULT_OK, data);
                 finish();
                 return true;
 
