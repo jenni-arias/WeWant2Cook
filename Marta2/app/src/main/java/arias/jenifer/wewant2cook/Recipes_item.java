@@ -1,7 +1,9 @@
 package arias.jenifer.wewant2cook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 
 public class Recipes_item {
@@ -34,6 +36,15 @@ public class Recipes_item {
         public void toggleleChecked() {
             this.checked=!this.checked;
         }
-    }
+
+        static public void goIngredients(String n){
+        // Anem a IngredientsActivity
+        Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
+        intent.putExtra("name",n);
+        //startActivityForResult(intent,0);
+            Log.i("Marta","Funció goIngredients");
+            Log.i("Marta",n);
+        }
+}
 
 

@@ -1,6 +1,8 @@
 package arias.jenifer.wewant2cook;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -27,10 +29,13 @@ public class RecipesActivity extends AppCompatActivity {
     private Button btn_add;
     //private ArrayAdapter<String> recipes_adapter;
     private RecipesAdapter recipes_adapter;
+    public static Context context;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
@@ -68,7 +73,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Log.i("Marta", "longclick FET");
@@ -79,7 +84,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                 return true;
             }
-        });
+        });*/
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +98,9 @@ public class RecipesActivity extends AppCompatActivity {
 
 
         // Enlace de RecipesActivity a IngredientsActivity
+        /*
         Intent intent = getIntent();
-        String recipe_name = intent.getStringExtra("name");
+        String recipe_name = intent.getStringExtra("name");*/
     }
     private void add_r() {
 
@@ -112,31 +118,37 @@ public class RecipesActivity extends AppCompatActivity {
 
                 RecipesList.add(new Recipes_item (input.getText().toString(),false));
                 Log.i("Marta",input.getText().toString());
-                saveRecipe(input.getText().toString());
+                Recipes_item.goIngredients(input.getText().toString());
             }
         });
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.show();
     }
 
-    public void saveRecipe(String n){
+    /*public void saveRecipe(String n){
+        // Anem a IngredientsActivity
         Intent intent = new Intent(this, IngredientsActivity.class);
         intent.putExtra("name",n);
         startActivityForResult(intent,0);
-    }
+    }*/
 
 
 
-
+    // Venim de IngredientsActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK){
-                    String Recipe = data.getStringExtra("recipe");
+                    //String Recipe = data.getStringExtra("recipe");
                     //RecipesList.add(new Recipes_item (Recipe,false));
+                    Log.i("Marta","OK TORNADA");
                 }
         }
     }
+    public static Context getAppContext(){
+        return context;
+    }
+    public Activity getAppActivity(){return RecipesActivity.this;}
 
     }

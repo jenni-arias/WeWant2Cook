@@ -87,8 +87,9 @@ public class IngredientsActivity extends AppCompatActivity {
 
             }
         });
+        // Venim de RecipesActivity
         Intent intent = getIntent();
-        recipe_name = intent.getStringExtra("name");
+        //recipe_name = intent.getStringExtra("name");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { // objecto para rellenar
@@ -101,8 +102,9 @@ public class IngredientsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch ((item.getItemId())) {
             case R.id.action_settings:
+                // Anem a RecipesActivity
                 Intent data = new Intent();
-                data.putExtra("name",recipe_name);
+                //data.putExtra("name",recipe_name);
                 setResult(RESULT_OK, data);
                 finish();
                 return true;

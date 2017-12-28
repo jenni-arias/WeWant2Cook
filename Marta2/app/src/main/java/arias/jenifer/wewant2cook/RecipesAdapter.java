@@ -1,6 +1,9 @@
 package arias.jenifer.wewant2cook;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +20,7 @@ import java.util.List;
  */
 
 public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
+    Activity activity;
 
     public RecipesAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
@@ -34,16 +38,29 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         }
 
         CheckBox checkbox = (CheckBox) result.findViewById(R.id.Recipes_item);
-        Recipes_item item = getItem(position);
+        final Recipes_item item = getItem(position);
         checkbox.setText(item.getText());
         checkbox.setChecked(item.isChecked());
         checkbox.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
+                Recipes_item.goIngredients(item.getText());
+
                 return true;
             }
         });
         return result;
+    }
+
+    public void saveRecipe(String n){
+
+        activity=RecipesActivity.getAppActivity();
+
+
+        // Anem a IngredientsActivity
+        Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
+        intent.putExtra("name",n);
+        activity.startActivityForResult(intent,0);
     }
 }
