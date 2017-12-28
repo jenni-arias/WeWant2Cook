@@ -96,29 +96,3 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
     }
 
 }
-   /*     shopping_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> list, View item, int pos, long id) {
-                Log.i("jenn", "click");
-                maybeRemoveItem(pos);
-                return true;
-            }
-        });*/
-
- /*   private void maybeRemoveItem(final int pos) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmación");
-        String fmt = "Seguro que quieres eliminar este ingrediente?";
-
-        builder.setMessage(String.format(fmt, ShoppingList.get(pos).getNombre()));
-
-        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                ShoppingList.remove(pos);
-                shoppinglist_adapter.notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("Cancelar", null);
-        builder.create().show();
-    }*/
