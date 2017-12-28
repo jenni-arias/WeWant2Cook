@@ -37,6 +37,13 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         Recipes_item item = getItem(position);
         checkbox.setText(item.getText());
         checkbox.setChecked(item.isChecked());
+        checkbox.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                return true;
+            }
+        });
         return result;
     }
 }

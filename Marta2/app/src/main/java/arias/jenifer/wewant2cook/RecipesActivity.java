@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,21 +29,20 @@ public class RecipesActivity extends AppCompatActivity {
     private RecipesAdapter recipes_adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        list = (ListView)findViewById(R.id.recipes_list);
-        btn_add = (Button)findViewById(R.id.btn_add);
+        list = (ListView) findViewById(R.id.recipes_list);
+        btn_add = (Button) findViewById(R.id.btn_add);
 
         RecipesList = new ArrayList<>();
-        RecipesList.add(new Recipes_item ("Tortilla de patatas",true));
-        RecipesList.add(new Recipes_item ("Pastel de Queso",false));
-        RecipesList.add(new Recipes_item ("Brownies",false));
-        RecipesList.add(new Recipes_item ("Puré de verduras",false));
-        RecipesList.add(new Recipes_item ("Tortitas",false));
+        RecipesList.add(new Recipes_item("Tortilla de patatas", true));
+        RecipesList.add(new Recipes_item("Pastel de Queso", false));
+        RecipesList.add(new Recipes_item("Brownies", false));
+        RecipesList.add(new Recipes_item("Puré de verduras", false));
+        RecipesList.add(new Recipes_item("Tortitas", false));
 
 
         /*RecipesList.add("Pastel de Queso");
@@ -62,9 +62,22 @@ public class RecipesActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-               RecipesList.get(pos).toggleleChecked();
+                RecipesList.get(pos).toggleleChecked();
                 recipes_adapter.notifyDataSetChanged();
 
+            }
+        });
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Log.i("Marta", "longclick FET");
+                String NameRecipe = RecipesList.get(pos).getText();
+                saveRecipe(NameRecipe);
+                recipes_adapter.notifyDataSetChanged();
+
+
+                return true;
             }
         });
 
@@ -73,14 +86,16 @@ public class RecipesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 add_r();
 
-                Log.i("Marta","click");
+                Log.i("Marta", "click");
 
             }
         });
+
+
+        // Enlace de RecipesActivity a IngredientsActivity
+        Intent intent = getIntent();
+        String recipe_name = intent.getStringExtra("name");
     }
-
-    // Enlace de RecipesActivity a IngredientsActivity
-
     private void add_r() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -88,7 +103,7 @@ public class RecipesActivity extends AppCompatActivity {
         builder.setView(input);
 
         builder.setTitle(R.string.confirm_add); // títol del builder
-        builder.setMessage("Hello");
+        //builder.setMessage("Hello");
 
 
         builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
@@ -96,9 +111,11 @@ public class RecipesActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 RecipesList.add(new Recipes_item (input.getText().toString(),false));
+                Log.i("Marta",input.getText().toString());
                 saveRecipe(input.getText().toString());
             }
         });
+        builder.setNegativeButton(android.R.string.cancel, null);
         builder.show();
     }
 
@@ -117,7 +134,7 @@ public class RecipesActivity extends AppCompatActivity {
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK){
                     String Recipe = data.getStringExtra("recipe");
-                    RecipesList.add(new Recipes_item (Recipe,false));
+                    //RecipesList.add(new Recipes_item (Recipe,false));
                 }
         }
     }

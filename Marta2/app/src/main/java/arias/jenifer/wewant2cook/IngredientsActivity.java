@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -27,6 +30,7 @@ public class IngredientsActivity extends AppCompatActivity {
     private ArrayList<Ingredients_item> IngredientsList;
     private ListView list;
     private Button btn_add;
+    private String recipe_name;
 
     public static Context context;
 
@@ -36,9 +40,6 @@ public class IngredientsActivity extends AppCompatActivity {
 
    /* private ArrayList<String> IngredientsList;
     private ArrayAdapter<String> ingredient_adapter;*/
-   private static final String TAG = IngredientsActivity.class.getSimpleName();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +49,19 @@ public class IngredientsActivity extends AppCompatActivity {
 
         btn_add = (Button) findViewById(R.id.btn_add);
         list = (ListView) findViewById(R.id.ingredients_list);
-        Toolbar toolbar;
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        //Toolbar toolbar;
+        //toolbar = (Toolbar)findViewById(R.id.toolbar);
 
-
+        /*ActionBar actionBar = getActionBar();
+        actionBar.setSubtitle("mytest");
+        actionBar.setTitle("vogella.com");
+        */
 
 
         IngredientsList = new ArrayList<>();
-        IngredientsList.add(new Ingredients_item ("Huevos","unidad",4));
-        IngredientsList.add(new Ingredients_item ("Mantequilla","gr",100));
-        IngredientsList.add(new Ingredients_item ("Harina","gr", 80));
+        IngredientsList.add(new Ingredients_item("Huevos", "unidad", 4));
+        IngredientsList.add(new Ingredients_item("Mantequilla", "gr", 100));
+        IngredientsList.add(new Ingredients_item("Harina", "gr", 80));
 
         /*IngredientsList = new ArrayList<>();
         IngredientsList.add("Huevos");
@@ -76,29 +80,38 @@ public class IngredientsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.e(TAG,"Paco");
-                //aixó quan cliquis al boto add tenvia un missatge d'aquests que desapareixen als segons
+                Log.e("Marta", "btn_add");
+
                 Toast.makeText(getBaseContext(), "Has clicat el button", Toast.LENGTH_SHORT).show();
-                // Code here executes on main thread after user presses button
+
 
             }
         });
         Intent intent = getIntent();
-
-        String recipe_name = intent.getStringExtra("name");
-        toolbar.setTitle(recipe_name);
-
-
-
-
-
-
-
-
-
-
-
+        recipe_name = intent.getStringExtra("name");
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { // objecto para rellenar
+        MenuInflater inflater = getMenuInflater(); // inflador de menús
+        inflater.inflate(R.menu.options,menu); //  ar partir de ése recurso, mételo en menu
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ((item.getItemId())) {
+            case R.id.action_settings:
+                Intent data = new Intent();
+                data.putExtra("name",recipe_name);
+                setResult(RESULT_OK, data);
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     public static Context getAppContext(){
         return context;

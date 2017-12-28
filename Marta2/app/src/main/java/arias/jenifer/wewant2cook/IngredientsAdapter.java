@@ -27,7 +27,7 @@ import static java.lang.Float.parseFloat;
 public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
 
     public static Context context;
-    private static final String TAG = IngredientsActivity.class.getSimpleName();
+
 
     public IngredientsAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
@@ -57,7 +57,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
         num.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int pos, KeyEvent keyEvent) {
-                Log.e(TAG,"funciona clicat num");
+                Log.e("Marta","funciona clicat num");
                 float n = parseFloat(num.getText().toString());
                 item.setNumber(n);
                 return true;
@@ -69,25 +69,17 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
         units.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Log.e(TAG,"funciona clicat units");
+                Log.e("Marta","funciona clicat units");
                 String u = (units.getText().toString());
                 item.setUnits(u);
                 return true;
             }
         });
 
-
-
-
-        //Afegir evento long click al textview, aquí si fas un long click t'obrirà el dialog
-        //el royo sería que al clicar a qualsevol fila s'obris i es tindria que fer sobre el list no per cada element
-        //pero ja funciona, tindries que repetir aixo per cada item de la llista osigui on posa ingredient_name
-        //lo mateix pels edit text
-
         ingredient_name.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.e(TAG,"funciona clicat el textview");
+                Log.e("Marta","funciona clicat el textview");
                 //creem el alertdialog y setejem els botons i tal
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(IngredientsActivity.getAppContext());
 
