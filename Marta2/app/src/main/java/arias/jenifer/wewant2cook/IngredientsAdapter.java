@@ -84,7 +84,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(IngredientsActivity.getAppContext());
 
                 // String fmt = toString(result.findViewById(R.string.confirm_message));
-                builder1.setMessage(String.format("Are you sure you want to remove '%s'?", ingredient_name));
+                builder1.setMessage(String.format("Are you sure you want to remove '%s'?", ingredient_name.getText().toString()));
                 builder1.setCancelable(true);
 
                 builder1.setPositiveButton(
