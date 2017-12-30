@@ -3,4 +3,13 @@
     <string name="recipes">Recetas</string>
     <string name="shoppingList">Lista de la compra</string>
     <string name="share">Compartir</string>
+    <string name="question">¿Qué quieres hacer?</string>
+    <string name="Create_new">Crear nueva lista</string>
+    <string name="Enter_list">Unirse a una lista</string>
+    <string name="Put_code">Introduce el código</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="Ingredients">Ingredientes</string>
+    <string name="Save">Guardar</string>
+    <string name="confirm_add">Introduzca el nombre de la nueva receta</string>
+    <string name="confirm">Confirmación</string>
 </resources>
