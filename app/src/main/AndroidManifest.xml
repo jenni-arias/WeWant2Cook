@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/shop"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".WeWant2CookActivity">
+        <activity android:name=".PreActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,6 +18,10 @@
         </activity>
         <activity android:name=".ShoppingItem" />
         <activity android:name=".ShoppingList" />
+        <activity android:name=".WeWant2CookActivity" />
+        <activity android:name=".IngredientsActivity" />
+        <activity android:name=".RecipesActivity" />
+        <activity android:name=".Recipes_item"></activity>
     </application>
 
 </manifest>

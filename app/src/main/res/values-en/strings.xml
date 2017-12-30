@@ -3,4 +3,13 @@
     <string name="recipes">Recipes</string>
     <string name="share">Share</string>
     <string name="shoppingList">Shopping list</string>
+    <string name="question">¿Qué quieres hacer?</string>
+    <string name="Create_new">Create new list</string>
+    <string name="Enter_list">Join a list</string>
+    <string name="Put_code">Enter the code</string>
+    <string name="cerrar">Close</string>
+    <string name="Ingredients">Ingredients</string>
+    <string name="Save">Save</string>
+    <string name="confirm_add">Enter de name of the new recipe:</string>
+    <string name="confirm">Confirmation</string>
 </resources>
