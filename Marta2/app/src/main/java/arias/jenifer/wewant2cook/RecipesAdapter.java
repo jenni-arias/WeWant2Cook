@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,18 +24,21 @@ import java.util.List;
 
 public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
     //Activity activity;
-    static Context context=RecipesActivity.getAppContext();
+    static Context context = RecipesActivity.getAppContext();
+    Context mContext;
 
 
     public RecipesAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
+
     }
 
     @NonNull
     @Override
-    public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent){
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View result = convertView;
+        mContext = parent.getContext();
         if (result == null) {
             // Lo creamos de nuevo
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -56,10 +62,13 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         return result;
     }
 
-    public void saveRecipe(String n){
+    public void saveRecipe(String n) {
         // Anem a IngredientsActivity
         Intent intent = new Intent(context, IngredientsActivity.class);
-        intent.putExtra("name",n);
-        context.startActivity(intent);
+        intent.putExtra("name", n);
+        //context.startActivity(intent);
+        ((Activity) mContext).startActivityForResult(intent,0);
+
     }
 }
+
