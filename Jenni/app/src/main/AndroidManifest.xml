@@ -11,14 +11,14 @@
         android:theme="@style/AppTheme">
 
         <!-- <activity android:name=".WeWant2CookActivity.ShoppingListActivity.PreActivity"> -->
-        <activity android:name=".PreActivity"
+        <!--    <activity android:name=".PreActivity"
             android:label="@string/PreActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> -->
 
         <activity android:name=".ShoppingListActivity"
             android:label="@string/ShoppingList">
@@ -29,14 +29,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WeWant2CookActivity"
+   <!--     <activity android:name=".WeWant2CookActivity"
             android:label="@string/PreActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> -->
 
 
     </application>

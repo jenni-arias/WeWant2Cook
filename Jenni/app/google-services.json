@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "720871953384",
+    "firebase_url": "https://wewant2cook.firebaseio.com",
+    "project_id": "wewant2cook",
+    "storage_bucket": "wewant2cook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720871953384:android:2540293de6026a9a",
+        "android_client_info": {
+          "package_name": "arias.jenifer.wewant2cook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720871953384-mq6rhhu03n0p1k7s4dvmqb590q69b6br.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "arias.jenifer.wewant2cook",
+            "certificate_hash": "8ee44045ac5ed5e07298e924bcc2ffc1b61e2441"
+          }
+        },
+        {
+          "client_id": "720871953384-knq8edegjmhtor3g49ohj283cel0086u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKbxkyk_lcS3F1INtUcKgJWvidrdzvYVg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720871953384-knq8edegjmhtor3g49ohj283cel0086u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
