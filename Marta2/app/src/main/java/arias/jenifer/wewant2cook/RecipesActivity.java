@@ -75,7 +75,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        /*list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+       /* list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Log.i("Marta", "longclick FET");
@@ -115,21 +115,23 @@ public class RecipesActivity extends AppCompatActivity {
 
                 RecipesList.add(new Recipes_item (input.getText().toString(),false));
                 Log.i("Marta",input.getText().toString());
+
                 saveRecipe(input.getText().toString());
             }
         });
+
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.show();
     }
 
-    public void saveRecipe(String n){
+     public void saveRecipe(String n){
         // Anem a IngredientsActivity
-        Intent intent = new Intent(this, IngredientsActivity.class);
+        Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
         intent.putExtra("name",n);
         startActivityForResult(intent,0);
+         //startActivity(intent);
+
     }
-
-
 
     // Venim de IngredientsActivity
     @Override
@@ -172,10 +174,6 @@ public class RecipesActivity extends AppCompatActivity {
 
 
                     }
-
-
-
-
                 }
         }
     }
@@ -183,4 +181,4 @@ public class RecipesActivity extends AppCompatActivity {
         return context;
     }
 
-    }
+}
