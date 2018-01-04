@@ -139,22 +139,41 @@ public class RecipesActivity extends AppCompatActivity {
                 if (resultCode == AppCompatActivity.RESULT_OK){
                     // TODO rebre els ingredients i guardar-los a un String
                     String Recipe = data.getStringExtra("name");
-                    //String Ingredients = data.getStringExtra("ingredient");
 
-                    Bundle bundle = data.getBundleExtra("ingredient");
-
-                    lista = (ArrayList<Recipes_item>) data.getSerializableExtra("ingredient");
+                    ArrayList<String> ing = new ArrayList<String>();
+                    ArrayList<String> units = new ArrayList<String>();
+                    ArrayList<Integer> number = new ArrayList<Integer>();
 
 
                     //lista = (ArrayList<Recipes_item>) data.getSerializableExtra("ingredient");
 
                     RecipesList.add(new Recipes_item (Recipe,false));
 
+                    ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
+                    ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
+                    ArrayList<String> ingredientUnits = data.getStringArrayListExtra("units");
 
-                    Log.i("Tornada",Recipe);
-                    Log.i("Tornada", lista.size()+"");
 
-                   //Log.i("Print Items Count", lista.size()+"");
+                    for (int i=0; i<ingredientName.size();i++){
+
+                        String ingname = ingredientName.get(i);
+                        Integer num = ingredientNumber.get(i);
+                        String uni = ingredientUnits.get(i);
+
+                        ing.add(ingname);
+                        units.add(uni);
+                        number.add(num);
+
+                        //Log.i("Intent",i+"");
+                        //Log.i("Intent",ing.size()+"");
+                        Log.i("Intent",ingredientName.get(i));
+                        Log.i("Intent",ingredientNumber.get(i).toString());
+                        Log.i("Intent",ingredientUnits.get(i));
+
+
+                    }
+
+
 
 
                 }

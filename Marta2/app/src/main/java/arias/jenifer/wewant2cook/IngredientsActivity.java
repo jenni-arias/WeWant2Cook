@@ -94,6 +94,7 @@ public class IngredientsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         recipe_name = intent.getStringExtra("name");
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { // objecto para rellenar
         MenuInflater inflater = getMenuInflater(); // inflador de menús
@@ -107,28 +108,38 @@ public class IngredientsActivity extends AppCompatActivity {
             case R.id.action_settings:
                 // Anem a RecipesActivity
                 int i =0;
-                //lista = new ArrayList<>();
+                lista = new ArrayList<>();
                 Intent data = new Intent();
                 data.putExtra("name",recipe_name);
-                Bundle bundle = new Bundle();
+
+                ArrayList<String> ing = new ArrayList<String>();
+                ArrayList<String> units = new ArrayList<String>();
+                ArrayList<Integer> number = new ArrayList<Integer>();
+                for ( i=0; i<IngredientsList.size();i++){
+
+                   String ingname = IngredientsList.get(i).getText();
+                    int num = (int) IngredientsList.get(i).getNumber();
+                    String uni = IngredientsList.get(i).getUnits();
+
+                    ing.add(ingname);
+                    units.add(uni);
+                    number.add(num);
+
+                   //Log.i("Intent",i+"");
+                    // Log.i("Intent",ing.size()+"");
 
 
-                    while (i<IngredientsList.size()){
-                        Log.i("Intent",IngredientsList.get(i).getText());
-                        Log.i("Intent",IngredientsList.size()+"");
-                    //lista.add(new Ingredients_item(IngredientsList.get(i).getText(),IngredientsList.get(i).getUnits(), IngredientsList.get(i).getNumber()));
-                        bundle.putSerializable("ingredient", IngredientsList.get(i).getText());
-                        //data.putExtras(bundle);
-                        setResult(RESULT_OK, data.putExtras(bundle));
-                        i+=1;
-
-                    }
-                //ArrayList<Spanned> passwords = search.getResult();
+                }
+                data.putExtra("ingredient",ing);
+                data.putExtra("number",number);
+                data.putExtra("units",units);
 
 
 
-               // data.putExtra("ingredient",(Serializable)IngredientsList);
-                //setResult(RESULT_OK, data);
+
+
+
+                setResult(RESULT_OK, data);
                 finish();
                 return true;
 
