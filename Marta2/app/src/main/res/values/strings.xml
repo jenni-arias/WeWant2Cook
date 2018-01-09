@@ -4,8 +4,13 @@
     <string name="Ingredients">Ingredients</string>
     <string name="confirm">Confirmation</string>
     <string name="confirm_message">Are you sure you want to remove \'%1$s\'?</string>
+
     <string name="remove">Remove</string>
     <string name="Recipe_name">Recipe Name</string>
     <string name="confirm_add">Enter de name of the new recipe:</string>
-    <string name="Variable">variable</string>
+
+    <string name="clear_checked">Eliminar items seleccionats</string>
+    <string name="clear_all">Eliminar tots els items</string>
+    <string name="add_shoppinglist">Add items to shopping list</string>
+    <string name="confirm_clear_all">Are you sure you want to clear all items?</string>
 </resources>
