@@ -13,4 +13,5 @@
     <string name="clear_all">Eliminar tots els items</string>
     <string name="add_shoppinglist">Add items to shopping list</string>
     <string name="confirm_clear_all">Are you sure you want to clear all items?</string>
+    <string name="search_recipe">Write the name of the recipe</string>
 </resources>

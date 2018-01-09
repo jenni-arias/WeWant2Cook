@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,7 +36,10 @@ public class RecipesActivity extends AppCompatActivity {
     //private ArrayAdapter<String> recipes_adapter;
     private RecipesAdapter recipes_adapter;
     public static Context context;
-    private ArrayList<Recipes_item> lista;
+    int textlength = 0;
+    private String listview_array[];//= {"Huevos"};
+
+
 
 
     @Override
@@ -92,6 +97,8 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });*/
 
+
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +108,8 @@ public class RecipesActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
@@ -205,15 +214,43 @@ public class RecipesActivity extends AppCompatActivity {
                 add_shppinglist();
                 Log.i("Menu", "Add to shoppinglist");
                 return true;
+            case R.id.action_buscar:
+                SearchRecipe();
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void SearchRecipe() {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setTitle(R.string.search_recipe);
+
+
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // TODO Búsqueda de recetas
+
+                        }
+            });
+
+
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.show();
+
+
+    }
+
     private void add_shppinglist() {
 
-        // TODO enviarlo al Firebase -> son los arraylist: ing,  units, number
+        // TODO enviarlo al Firebase -> son los arraylist: ing,  units, number (V4)
     }
 
 
