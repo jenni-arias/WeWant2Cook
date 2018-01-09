@@ -15,6 +15,7 @@ public class ShoppingItem {
     private ArrayList<ShoppingItem> ShoppingList;
     private int code;
     private boolean borrar;
+    private boolean editar;
 
     public ShoppingItem(){
 
@@ -29,6 +30,7 @@ public class ShoppingItem {
         this.ShoppingList = ShoppingList;
         this.code = code;
         this.borrar = false;
+        this.editar = false;
     }
 
     public String getNombre() {
@@ -82,5 +84,13 @@ public class ShoppingItem {
 
     public void setBorrar(boolean borrar) {
         this.borrar = borrar;
+    }
+
+    public boolean getEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
 }

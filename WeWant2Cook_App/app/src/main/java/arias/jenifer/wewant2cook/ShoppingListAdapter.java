@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -108,13 +109,16 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!item.getBorrar()) {
-                    String uni = (edit_cantidad.getText().toString());
-                    Log.i("Hugo", item.getNombre());
-                    item.setCantidad(Float.parseFloat(uni));
-                    String new_value = String.valueOf(uni).concat(" ").concat(item.getUnidades());
-                    databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child(String.valueOf(item.getCode())).
-                            child(item.getNombre()).setValue(new_value);
+                    if((item.getEditar())) {
+                        String uni = (edit_cantidad.getText().toString());
+                        Log.i("Hugo", item.getNombre());
+                        item.setCantidad(Float.parseFloat(uni));
+                        item.setEditar(false);
+                        String new_value = String.valueOf(uni).concat(" ").concat(item.getUnidades());
+                        databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child(String.valueOf(item.getCode())).
+                                child(item.getNombre()).setValue(new_value);
+                    }
                 }
             }
         });
@@ -137,14 +141,24 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!item.getBorrar()) {
-                    String uni = (edit_unidades.getText().toString());
-                    item.setUnidades(uni);
-                    String new_value = String.valueOf(item.getCantidad()).concat(" ").concat(uni);
-                    databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child(String.valueOf(item.getCode())).
-                            child(item.getNombre()).setValue(new_value);
+                    if((item.getEditar())) {
+                        String uni = (edit_unidades.getText().toString());
+                        item.setUnidades(uni);
+                        item.setEditar(false);
+                        String new_value = String.valueOf(item.getCantidad()).concat(" ").concat(uni);
+                        databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child(String.valueOf(item.getCode())).
+                                child(item.getNombre()).setValue(new_value);
+                    }
                 }
 
+            }
+        });
+
+        item_nombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                item.setEditar(true);
             }
         });
 
@@ -162,6 +176,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         item.setBorrar(true);
+                        item.setEditar(true);
                         databaseReference = FirebaseDatabase.getInstance().getReference();
                         databaseReference.child(String.valueOf(item.getCode())).
                                child(item.getNombre()).setValue(null);
