@@ -11,6 +11,26 @@
         android:theme="@style/AppTheme">
 
         <!-- <activity android:name=".WeWant2CookActivity.ShoppingListActivity.PreActivity"> -->
+
+        <activity android:name=".RecipesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".IngredientsActivity"
+            android:label="Ingredients">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity android:name=".ShoppingListActivity"
             android:label="@string/PreActivity">
             <intent-filter>
@@ -19,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ShoppingItem" />
 
     </application>
