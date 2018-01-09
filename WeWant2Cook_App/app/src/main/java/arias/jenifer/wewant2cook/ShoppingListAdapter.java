@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,15 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 import static java.lang.Float.parseFloat;
 
 /**
- * Created by j.arias.gallego on 09/12/2017.
+ * Created by h.delanieta.marin on 12/12/2017.
  */
 
 public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
-
+    DatabaseReference databaseReference;
 
     public ShoppingListAdapter (Context context, int resource, List objects) {
         super(context, resource, objects);
@@ -46,79 +51,90 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         edit_cantidad.setText(Float.toString(item.getCantidad()));
         edit_unidades.setText(item.getUnidades());
 
-        edit_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+
+
+
+        edit_cantidad.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int pos, KeyEvent event) {
-                float cant = parseFloat(edit_cantidad.getText().toString());
-                item.setCantidad(cant);
-                return true;
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String uni = (edit_cantidad.getText().toString());
+                item.setCantidad(Float.parseFloat(uni));
+                String new_value = String.valueOf(uni).concat(" ").concat(item.getUnidades());
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child(String.valueOf(item.getCode())).
+                        child(item.getNombre()).setValue(new_value);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
-        edit_unidades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+
+
+        edit_unidades.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String uni = (edit_unidades.getText().toString());
                 item.setUnidades(uni);
-                return true;
+                String new_value = String.valueOf(item.getCantidad()).concat(" ").concat(uni);
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child(String.valueOf(item.getCode())).
+                        child(item.getNombre()).setValue(new_value);
+                //notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
 
-      item_nombre.setOnLongClickListener(new View.OnLongClickListener() {
-          @Override
-          public boolean onLongClick(View v) {
-              Log.e("jenn","longclick clicado");
-              AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingListActivity.getAppContext());
+        item_nombre.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.e("jenn","longclick clicado");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingListActivity.getAppContext());
 
-              builder.setMessage("Seguro que quieres eliminar este ingrediente?");
-              builder.setCancelable(true);
+                builder.setMessage("¿Seguro que quieres eliminar este ingrediente?");
+                builder.setCancelable(true);
 
-              builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialogInterface, int i) {
-                      remove(item);
-  //                    shoppinglist_adapter.notifyDataSetChanged();
-                  }
-              });
-              builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                      dialog.cancel();
-                  }
-              });
-              builder.create().show();
-              return true;
-          }
-      });
+                builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child(String.valueOf(item.getCode())).
+                                child(item.getNombre()).removeValue();
+                        notifyDataSetChanged();
+
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
+                return true;
+            }
+        });
 
         return result;
     }
 
 }
-   /*     shopping_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> list, View item, int pos, long id) {
-                Log.i("jenn", "click");
-                maybeRemoveItem(pos);
-                return true;
-            }
-        });*/
-
- /*   private void maybeRemoveItem(final int pos) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmación");
-        String fmt = "Seguro que quieres eliminar este ingrediente?";
-
-        builder.setMessage(String.format(fmt, ShoppingList.get(pos).getNombre()));
-
-        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                ShoppingList.remove(pos);
-                shoppinglist_adapter.notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("Cancelar", null);
-        builder.create().show();
-    }*/

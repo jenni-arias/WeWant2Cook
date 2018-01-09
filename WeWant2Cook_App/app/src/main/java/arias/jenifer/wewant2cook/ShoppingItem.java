@@ -1,16 +1,32 @@
 package arias.jenifer.wewant2cook;
 
 
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShoppingItem {
 
+    private ListView list;
     private String nombre;
     private float cantidad;
     private String unidades;
+    private ArrayList<ShoppingItem> ShoppingList;
+    private int code;
 
-    public ShoppingItem(String nombre, float cantidad, String unidades) {
+    public ShoppingItem(){
+
+    }
+
+    public ShoppingItem(String nombre, float cantidad, String unidades, ListView list,
+                        ArrayList<ShoppingItem> ShoppingList, int code) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.unidades = unidades;
+        this.list = list;
+        this.ShoppingList = ShoppingList;
+        this.code = code;
     }
 
     public String getNombre() {
@@ -35,5 +51,27 @@ public class ShoppingItem {
 
     public void setUnidades(String unidades) {
         this.unidades = unidades;
+    }
+
+    public ListView  getlist(){
+        return list;
+    }
+
+    public void setList(ListView list){
+        this.list = list;
+    }
+    public  ArrayList<ShoppingItem>  getArray(){
+        return ShoppingList;
+    }
+
+    public void setArray( ArrayList<ShoppingItem> ShoppingList){
+        this.ShoppingList = ShoppingList;
+    }
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }
