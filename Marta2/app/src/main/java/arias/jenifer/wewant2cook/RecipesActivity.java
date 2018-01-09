@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,10 +37,9 @@ public class RecipesActivity extends AppCompatActivity {
     private ArrayList<Recipes_item> lista;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        context=this;
+        context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
@@ -66,14 +68,16 @@ public class RecipesActivity extends AppCompatActivity {
 
         list.setAdapter(recipes_adapter);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
                 RecipesList.get(pos).toggleleChecked();
                 recipes_adapter.notifyDataSetChanged();
+                Log.i("Menu", RecipesList.get(pos).isChecked()+"");
+
 
             }
-        });
+        });*/
 
        /* list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -99,6 +103,7 @@ public class RecipesActivity extends AppCompatActivity {
         });
 
     }
+
     private void add_r() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -113,8 +118,8 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                RecipesList.add(new Recipes_item (input.getText().toString(),false));
-                Log.i("Marta",input.getText().toString());
+                RecipesList.add(new Recipes_item(input.getText().toString(), false));
+                Log.i("Marta", input.getText().toString());
 
                 saveRecipe(input.getText().toString());
             }
@@ -124,21 +129,21 @@ public class RecipesActivity extends AppCompatActivity {
         builder.show();
     }
 
-     public void saveRecipe(String n){
+    public void saveRecipe(String n) {
         // Anem a IngredientsActivity
         Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
-        intent.putExtra("name",n);
-        startActivityForResult(intent,0);
-         //startActivity(intent);
+        intent.putExtra("name", n);
+        startActivityForResult(intent, 0);
+        //startActivity(intent);
 
     }
 
     // Venim de IngredientsActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 0:
-                if (resultCode == AppCompatActivity.RESULT_OK){
+                if (resultCode == AppCompatActivity.RESULT_OK) {
                     // TODO rebre els ingredients i guardar-los a un String
                     String Recipe = data.getStringExtra("name");
 
@@ -149,14 +154,14 @@ public class RecipesActivity extends AppCompatActivity {
 
                     //lista = (ArrayList<Recipes_item>) data.getSerializableExtra("ingredient");
 
-                    RecipesList.add(new Recipes_item (Recipe,false));
+                    RecipesList.add(new Recipes_item(Recipe, false));
 
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
                     ArrayList<String> ingredientUnits = data.getStringArrayListExtra("units");
 
 
-                    for (int i=0; i<ingredientName.size();i++){
+                    for (int i = 0; i < ingredientName.size(); i++) {
 
                         String ingname = ingredientName.get(i);
                         Integer num = ingredientNumber.get(i);
@@ -168,17 +173,86 @@ public class RecipesActivity extends AppCompatActivity {
 
                         //Log.i("Intent",i+"");
                         //Log.i("Intent",ing.size()+"");
-                        Log.i("Intent",ingredientName.get(i));
-                        Log.i("Intent",ingredientNumber.get(i).toString());
-                        Log.i("Intent",ingredientUnits.get(i));
+                        Log.i("Intent", ingredientName.get(i));
+                        Log.i("Intent", ingredientNumber.get(i).toString());
+                        Log.i("Intent", ingredientUnits.get(i));
 
 
                     }
                 }
         }
     }
-    public static Context getAppContext(){
-        return context;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { // objecto para rellenar
+        MenuInflater inflater = getMenuInflater(); // inflador de menús
+        inflater.inflate(R.menu.options_recipes, menu); //  ar partir de ése recurso, mételo en menu
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ((item.getItemId())) {
+            case R.id.clear_cheched:
+                clearChecked();
+                Log.i("Menu", "Clear checked");
+                return true;
+            case R.id.clear_all:
+                clearAll();
+                Log.i("Menu", "Clear all");
+                return true;
+            case R.id.add_shoppinglist:
+                add_shppinglist();
+                Log.i("Menu", "Add to shoppinglist");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void add_shppinglist() {
+
+        // TODO enviarlo al Firebase -> son los arraylist: ing,  units, number
+    }
+
+
+
+
+    private void clearAll() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(R.string.confirm_clear_all);
+        builder.setPositiveButton(R.string.clear_all, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                RecipesList.clear();
+                recipes_adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.create().show();
+    }
+
+    private void clearChecked() {
+        int i = 0;
+        while (i < RecipesList.size()) {
+            Log.i("Menu", RecipesList.size()+"" );
+            if (RecipesList.get(i).isChecked()) {
+                Log.i("Menu", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
+                RecipesList.remove(i);
+
+
+            } else {
+                Log.i("Menu", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
+                i++;
+            }
+        }
+        recipes_adapter.notifyDataSetChanged();
+    }
+
+    public static Context getAppContext() {
+        return context;
+    }
 }

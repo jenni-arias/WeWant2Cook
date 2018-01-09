@@ -96,9 +96,9 @@ public class IngredientsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) { // objecto para rellenar
-        MenuInflater inflater = getMenuInflater(); // inflador de menús
-        inflater.inflate(R.menu.options,menu); //  ar partir de ése recurso, mételo en menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options,menu); 
         return true;
     }
 
@@ -117,7 +117,7 @@ public class IngredientsActivity extends AppCompatActivity {
                 ArrayList<Integer> number = new ArrayList<Integer>();
                 for ( i=0; i<IngredientsList.size();i++){
 
-                   String ingname = IngredientsList.get(i).getText();
+                    String ingname = IngredientsList.get(i).getText();
                     int num = (int) IngredientsList.get(i).getNumber();
                     String uni = IngredientsList.get(i).getUnits();
 
@@ -125,19 +125,12 @@ public class IngredientsActivity extends AppCompatActivity {
                     units.add(uni);
                     number.add(num);
 
-                   //Log.i("Intent",i+"");
-                    // Log.i("Intent",ing.size()+"");
-
-
+                    //Log.i("Intent",i+"");
+                    //Log.i("Intent",ing.size()+"");
                 }
                 data.putExtra("ingredient",ing);
                 data.putExtra("number",number);
                 data.putExtra("units",units);
-
-
-
-
-
 
                 setResult(RESULT_OK, data);
                 finish();
@@ -148,10 +141,8 @@ public class IngredientsActivity extends AppCompatActivity {
         }
     }
 
-
     public static Context getAppContext(){
         return context;
     }
-
 
 }

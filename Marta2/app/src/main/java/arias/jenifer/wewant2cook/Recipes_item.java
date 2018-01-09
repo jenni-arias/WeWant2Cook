@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import static arias.jenifer.wewant2cook.RecipesActivity.context;
+
 
 public class Recipes_item {
 
@@ -36,6 +38,8 @@ public class Recipes_item {
         public void toggleleChecked() {
             this.checked=!this.checked;
         }
+
+
 
 
 }

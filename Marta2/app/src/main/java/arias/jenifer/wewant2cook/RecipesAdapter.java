@@ -59,6 +59,13 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
                 return true;
             }
         });
+        checkbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                item.toggleleChecked();
+                Log.i("Menu", item.isChecked()+"");
+            }
+        });
         return result;
     }
 
