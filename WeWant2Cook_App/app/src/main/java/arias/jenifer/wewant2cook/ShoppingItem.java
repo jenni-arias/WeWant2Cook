@@ -14,6 +14,7 @@ public class ShoppingItem {
     private String unidades;
     private ArrayList<ShoppingItem> ShoppingList;
     private int code;
+    private boolean borrar;
 
     public ShoppingItem(){
 
@@ -27,6 +28,7 @@ public class ShoppingItem {
         this.list = list;
         this.ShoppingList = ShoppingList;
         this.code = code;
+        this.borrar = false;
     }
 
     public String getNombre() {
@@ -73,5 +75,12 @@ public class ShoppingItem {
 
     public void setCode(int code) {
         this.code = code;
+    }
+    public boolean getBorrar() {
+        return borrar;
+    }
+
+    public void setBorrar(boolean borrar) {
+        this.borrar = borrar;
     }
 }

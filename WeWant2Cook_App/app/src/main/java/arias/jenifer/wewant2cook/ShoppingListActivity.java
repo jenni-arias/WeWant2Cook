@@ -61,7 +61,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        code = intent.getIntExtra("code", 1);
+        code = intent.getIntExtra("code", 2);
 
         shoppinglist_adapter = new ShoppingListAdapter(
                 this,
@@ -82,8 +82,9 @@ public class ShoppingListActivity extends AppCompatActivity {
                 ShoppingList.add(new ShoppingItem(dataSnapshot.getKey(),
                         getCantidad(dataSnapshot.getValue().toString()),
                         getUds(dataSnapshot.getValue().toString()), shopping_list, ShoppingList,code));
-                Log.i("Hugo", dataSnapshot.getValue().toString());
                 shoppinglist_adapter.notifyDataSetChanged();
+
+                //Log.i("Hugo", ShoppingList.get(ShoppingList.size()-1).getNombre());
             }
 
             @Override
@@ -93,8 +94,15 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                ShoppingList.remove(getIndex(dataSnapshot.getKey()));
-                shoppinglist_adapter.notifyDataSetChanged();
+               /* Log.i("Hugo", dataSnapshot.getKey());
+                int i = getIndex(dataSnapshot.getKey());
+                if(i!=-1) {
+                    Log.i("Hugo", "índice " + String.valueOf(i));
+                    //ShoppingList.remove(getIndex("pan"));
+                    ShoppingList.remove(getIndex(dataSnapshot.getKey()));
+                }
+                ShoppingList.remove(0);
+                shoppinglist_adapter.notifyDataSetChanged();*/
             }
 
             @Override
@@ -146,7 +154,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                                 }else{
                                     in2 = 0;
                                 }
-                                String in3 = input.getText().toString();
+                                String in3 = input2.getText().toString();
                                 if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
                                     addItem(in1, in2, in3);
                                     dialog.cancel();
@@ -172,7 +180,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     private int getIndex(String s) {
         int ind = -1;
         for(int i=0; i<ShoppingList.size(); i++){
-            if(ShoppingList.get(i).getNombre().equals(s)){
+            //Log.i("Hugo", "Nombre del get(i) "+ ShoppingList.get(i).getNombre());
+            //Log.i("Hugo", "String "+s);
+            if(ShoppingList.get(i).getNombre().equalsIgnoreCase(s)){
+               // Log.i("Hugo", "Pasa");
                 ind = i;
             }
         }
@@ -190,7 +201,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private float getCantidad(String s) {
         float cantidad = 0;
-        Log.i("Hugo", s);
         String[] parts = s.split(" ");
 
         if(parts.length>=2) {
