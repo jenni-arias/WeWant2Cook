@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import static java.lang.Float.parseFloat;
 
@@ -43,9 +45,9 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             result = inflater.inflate(R.layout.activity_shopping_item, null);
         }
-        final EditText edit_cantidad = result.findViewById(R.id.edit_cantidad);
-        final EditText edit_unidades = result.findViewById(R.id.edit_unidades);
-        final TextView item_nombre = result.findViewById(R.id.item_nombre);
+        final EditText edit_cantidad = (EditText) result.findViewById(R.id.edit_cantidad);
+        final EditText edit_unidades = (EditText) result.findViewById(R.id.edit_unidades);
+        final TextView item_nombre = (TextView) result.findViewById(R.id.item_nombre);
         final ShoppingItem item = getItem(position);
 
         item_nombre.setText(item.getNombre());
@@ -76,10 +78,10 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 item.setUnidades(uni);
 
 
-                /*String new_value = String.valueOf(item.getCantidad()).concat(" ").concat(uni);
+                String new_value = String.valueOf(item.getCantidad()).concat(" ").concat(uni);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child(String.valueOf(item.getCode())).
-                        child(item.getNombre()).setValue(new_value);*/
+                        child(item.getNombre()).setValue(new_value);
 
                 notifyDataSetChanged();
                 return true;

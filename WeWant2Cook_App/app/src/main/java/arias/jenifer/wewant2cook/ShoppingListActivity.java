@@ -38,6 +38,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private EditText edit_item;
     private TextView item_nombre;
     private ArrayList<ShoppingItem> ShoppingList;
+    private ArrayList<ShoppingItem> ShoppingListFromRecipies;
     private ShoppingListAdapter shoppinglist_adapter;
 
     public static Context context;
@@ -51,6 +52,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+        DatabaseReference databaseReference;
 
         shopping_list = (ListView) findViewById(R.id.shopping_list);
         btn_add = (Button) findViewById(R.id.btn_add);
@@ -58,6 +60,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         item_nombre =  (TextView) findViewById(R.id.item_nombre);
 
         ShoppingList = new ArrayList<>();
+        ShoppingListFromRecipies = new ArrayList<>();
 
 
         Intent intent = getIntent();
@@ -71,9 +74,24 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         shopping_list.setAdapter(shoppinglist_adapter);
 
+        Intent intent2 = getIntent();
+        ArrayList<String> ings  = intent2.getStringArrayListExtra("ings");
+        ArrayList<Integer> nums  = intent2.getIntegerArrayListExtra("nums");
+        ArrayList<String> units  = intent2.getStringArrayListExtra("units");
+
+        for (int i =0; i < ings.size(); i++){
+
+            String new_value = String.valueOf(nums.get(i)).concat(" ").concat(units.get(i));
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+            databaseReference.child(String.valueOf(code)).
+                    child(ings.get(i)).setValue(new_value);
+
+            shoppinglist_adapter.notifyDataSetChanged();
+
+        }
 
 
-
+        Log.i("ShoppingList", ings.get(0)+nums.get(0)+units.get(0));
 
         dref = FirebaseDatabase.getInstance().getReference().child(String.valueOf(code));
         mListener = dref.addChildEventListener(new ChildEventListener() {
@@ -83,6 +101,12 @@ public class ShoppingListActivity extends AppCompatActivity {
                         getCantidad(dataSnapshot.getValue().toString()),
                         getUds(dataSnapshot.getValue().toString()), shopping_list, ShoppingList,code));
                 shoppinglist_adapter.notifyDataSetChanged();
+
+
+
+
+
+
 
                 //Log.i("Hugo", ShoppingList.get(ShoppingList.size()-1).getNombre());
             }
@@ -94,15 +118,15 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-               /* Log.i("Hugo", dataSnapshot.getKey());
+               Log.i("Hugo", dataSnapshot.getKey());
                 int i = getIndex(dataSnapshot.getKey());
                 if(i!=-1) {
                     Log.i("Hugo", "índice " + String.valueOf(i));
                     //ShoppingList.remove(getIndex("pan"));
                     ShoppingList.remove(getIndex(dataSnapshot.getKey()));
                 }
-                ShoppingList.remove(0);
-                shoppinglist_adapter.notifyDataSetChanged();*/
+               // ShoppingList.remove(0);
+                shoppinglist_adapter.notifyDataSetChanged();
             }
 
             @Override

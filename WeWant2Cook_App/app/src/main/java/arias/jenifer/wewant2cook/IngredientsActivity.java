@@ -101,6 +101,7 @@ public class IngredientsActivity extends AppCompatActivity {
                 ArrayList<String> ing = new ArrayList<String>();
                 ArrayList<String> units = new ArrayList<String>();
                 ArrayList<Integer> number = new ArrayList<Integer>();
+
                 for ( i=0; i<IngredientsList.size();i++){
 
                     String ingname = IngredientsList.get(i).getText();

@@ -24,6 +24,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +41,18 @@ public class RecipesActivity extends AppCompatActivity {
     private Button btn_add;
     private RecipesAdapter recipes_adapter;
     public static Context context;
+
+
+    ArrayList<String> ing = new ArrayList<String>();
+    ArrayList<String> units = new ArrayList<String>();
+    ArrayList<Integer> number = new ArrayList<Integer>();
+
+    ArrayList<String> IngredientsRecipies = new ArrayList<>();
+
+    DatabaseReference dref;
+    private ChildEventListener mListener;
+    private int code;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +78,10 @@ public class RecipesActivity extends AppCompatActivity {
 
         list.setAdapter(recipes_adapter);
 
+        //RecipesList.add(new Recipes_item(Recipe, false));
+
+
+
 
 
     }
@@ -81,11 +103,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                     String Recipe = data.getStringExtra("name");
 
-                    ArrayList<String> ing = new ArrayList<String>();
-                    ArrayList<String> units = new ArrayList<String>();
-                    ArrayList<Integer> number = new ArrayList<Integer>();
 
-                    RecipesList.add(new Recipes_item(Recipe, false));
 
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
@@ -101,6 +119,12 @@ public class RecipesActivity extends AppCompatActivity {
                         ing.add(ingname);
                         units.add(uni);
                         number.add(num);
+
+
+                        String concat = Recipe+";"+ingname+";"+num+";"+uni;
+                        // TODO que no es repateixin les receptes
+                        //IngredientsRecipies.add(concat);
+                        IngredientsRecipies.add(concat);
 
                         Log.i("Intent", ingredientName.get(i));
                         Log.i("Intent", ingredientNumber.get(i).toString());
@@ -129,9 +153,46 @@ public class RecipesActivity extends AppCompatActivity {
                 Log.i("Menu", "Clear all");
                 return true;
             case R.id.add_shoppinglist:
-                add_shppinglist();
-                Log.i("Menu", "Add to shoppinglist");
+
+                int mm;
+                int jj;
+                for ( mm = 0; mm<RecipesList.size(); mm++) {
+
+                    Log.i("Menu1", RecipesList.size() + "");
+                    //while (jj < IngredientsRecipies.size()){
+                    for (jj = 0; jj < IngredientsRecipies.size(); jj++) {
+                        Log.i("Menu2", jj + "");
+
+                        String[] name = IngredientsRecipies.get(jj).split(";");
+                        //Log.i("Menu2.1", name[jj] );
+                        Log.i("Menu2.1", RecipesList.get(mm).getText());
+
+
+                        if (RecipesList.get(mm).getText().equals(name[jj])) {
+                            Log.i("Menu3", name[jj]);
+
+                            if (RecipesList.get(mm).isChecked()) {
+
+                                add_shppinglist();
+                                Log.i("Menu4", RecipesList.get(mm).getText());
+
+                            } else {
+                                Log.i("Menu", "noChecked");
+                                mm++;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+
+                recipes_adapter.notifyDataSetChanged();
+
                 return true;
+
             case R.id.action_buscar:
                 SearchRecipe();
 
@@ -147,7 +208,18 @@ public class RecipesActivity extends AppCompatActivity {
     private void add_shppinglist() {
 
         // TODO enviarlo al Firebase -> son los arraylist: ing,  units, number (V4)
-    }
+
+                Intent intent2 = new Intent(RecipesActivity.getAppContext(), ShoppingListActivity.class);
+                intent2.putExtra("ings", ing);
+                intent2.putExtra("nums", number);
+                intent2.putExtra("units", units);
+                startActivity(intent2);
+
+
+
+                Log.i("Recipes", ing.get(0));
+            }
+
 
     private void clearAll() {
 
