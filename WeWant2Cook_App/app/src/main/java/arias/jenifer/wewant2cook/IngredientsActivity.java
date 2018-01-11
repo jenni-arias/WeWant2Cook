@@ -24,6 +24,7 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 // TODO poder editar el títol del ActionBar amb el nom de la recipe seleccionada
 
@@ -51,9 +52,35 @@ public class IngredientsActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.ingredients_list);
 
         IngredientsList = new ArrayList<>();
-        IngredientsList.add(new Ingredients_item("Huevos", "unidad", 4));
-        IngredientsList.add(new Ingredients_item("Mantequilla", "gr", 100));
-        IngredientsList.add(new Ingredients_item("Harina", "gr", 80));
+        //Ingredientes aleatorios para probar
+        Random r = new Random();
+        int i1 = r.nextInt(80 - 2) + 2;
+
+        IngredientsList = new ArrayList<>();
+        if(i1 > 70) {
+            IngredientsList.add(new Ingredients_item("Huevos", "unidad", 4));
+            IngredientsList.add(new Ingredients_item("Mantequilla", "gr", 100));
+            IngredientsList.add(new Ingredients_item("Harina", "gr", 80));
+        }else if(i1 > 60){
+            IngredientsList.add(new Ingredients_item("Pasta", "unidad", 4));
+            IngredientsList.add(new Ingredients_item("Azúcar", "gr", 100));
+            IngredientsList.add(new Ingredients_item("Café", "gr", 80));
+        }else if(i1>50){
+            IngredientsList.add(new Ingredients_item("Chocolate", "unidad", 4));
+            IngredientsList.add(new Ingredients_item("Nestea", "gr", 100));
+            IngredientsList.add(new Ingredients_item("Arroz", "gr", 80));
+        }else if(i1>40){
+            IngredientsList.add(new Ingredients_item("Cereales", "unidad", 4));
+        }else if(i1>30){
+            IngredientsList.add(new Ingredients_item("Leche", "unidad", 4));
+        }else if(i1>20){
+            IngredientsList.add(new Ingredients_item("Nesquick", "unidad", 4));
+        }else if(i1>10){
+            IngredientsList.add(new Ingredients_item("Batido", "unidad", 4));
+        }else{
+            IngredientsList.add(new Ingredients_item("Galletas", "unidad", 4));
+        }
+
 
 
 

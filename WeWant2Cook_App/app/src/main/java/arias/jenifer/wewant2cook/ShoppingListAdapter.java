@@ -56,9 +56,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
 
 
 
-
-
-
         //////////////////////
 
         edit_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -87,10 +84,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 return true;
             }
         });
-
-
-
-
 
         //////////////////
 

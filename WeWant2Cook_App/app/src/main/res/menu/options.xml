@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:ndroid="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_settings"
-        android:title="SAVE"
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/guardar"
         android:orderInCategory="100"
-        android:icon="@mipmap/ic_launcher"
-        ndroid:showAsAction="ifRoom"
-        />
+        android:title="SAVE"
+        ndroid:showAsAction="always" />
 
 </menu>

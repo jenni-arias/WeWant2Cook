@@ -1,0 +1,54 @@
+package arias.jenifer.wewant2cook;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+
+public class PreActivity extends AppCompatActivity {
+
+    Button btn_nueva_lista;
+    Button btn_unirse_lista;
+    Button btn_unirse;
+    RelativeLayout Layout_unirse;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pre);
+
+        btn_nueva_lista = (Button) findViewById(R.id.btn_nueva_lista);
+        btn_unirse_lista = (Button) findViewById(R.id.btn_unirse_lista);
+        btn_unirse = (Button) findViewById(R.id.btn_unirse);
+        Layout_unirse = (RelativeLayout) findViewById(R.id.Layout_unirse);
+
+        Layout_unirse.setVisibility(View.INVISIBLE);
+
+        btn_nueva_lista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), WeWant2CookActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_unirse_lista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Layout_unirse.setVisibility(View.VISIBLE);
+
+                btn_unirse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO: Al introducir el código y clicar el botón "Unirse" tiene que aparecer WeWant2CookActivity de la lista compartida.
+                        Intent intent = new Intent(v.getContext(), WeWant2CookActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        });
+    }
+}
