@@ -93,9 +93,7 @@ public class WeWant2CookActivity extends AppCompatActivity {
                 });
                 builder2.setNegativeButton("Cancelar", null);
                 builder2.show();
-
-              /*  Intent intent = new Intent(this, PreActivity.class);
-                startActivity(intent); */
+                
                 return true;
 
             default:
