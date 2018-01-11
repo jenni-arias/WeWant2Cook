@@ -42,12 +42,12 @@ public class RecipesActivity extends AppCompatActivity {
     private RecipesAdapter recipes_adapter;
     public static Context context;
 
-
     ArrayList<String> ing = new ArrayList<String>();
     ArrayList<String> units = new ArrayList<String>();
     ArrayList<Integer> number = new ArrayList<Integer>();
 
-    ArrayList<String> IngredientsRecipies = new ArrayList<>();
+    private ArrayList<String> IngredientsRecipies = new ArrayList<>();
+
 
     DatabaseReference dref;
     private ChildEventListener mListener;
@@ -102,6 +102,7 @@ public class RecipesActivity extends AppCompatActivity {
                 if (resultCode == AppCompatActivity.RESULT_OK) {
 
                     String Recipe = data.getStringExtra("name");
+                    Log.i("RecipeNAme",Recipe); // això ho fa be!
 
 
 
@@ -123,12 +124,11 @@ public class RecipesActivity extends AppCompatActivity {
 
                         String concat = Recipe+";"+ingname+";"+num+";"+uni;
                         // TODO que no es repateixin les receptes
-                        //IngredientsRecipies.add(concat);
+
                         IngredientsRecipies.add(concat);
 
-                        Log.i("Intent", ingredientName.get(i));
-                        Log.i("Intent", ingredientNumber.get(i).toString());
-                        Log.i("Intent", ingredientUnits.get(i));
+                       Log.i("Intent_concat", concat);
+                        Log.i("Intent_get", IngredientsRecipies.get(i));
                     }
                 }
         }
@@ -156,36 +156,42 @@ public class RecipesActivity extends AppCompatActivity {
 
                 int mm;
                 int jj;
-                for ( mm = 0; mm<RecipesList.size(); mm++) {
+               // for ( mm = 0; mm<RecipesList.size(); mm++) {
+                //while(mm < RecipesList.size()) {
 
                     Log.i("Menu1", RecipesList.size() + "");
-                    //while (jj < IngredientsRecipies.size()){
+
                     for (jj = 0; jj < IngredientsRecipies.size(); jj++) {
+                        for ( mm = 0; mm<RecipesList.size(); mm++) {
                         Log.i("Menu2", jj + "");
 
                         String[] name = IngredientsRecipies.get(jj).split(";");
-                        //Log.i("Menu2.1", name[jj] );
-                        Log.i("Menu2.1", RecipesList.get(mm).getText());
+                        Log.i("Menu2.1", name[1] );
+                        //Log.i("Menu2.1", RecipesList.get(mm).getText());
 
 
-                        if (RecipesList.get(mm).getText().equals(name[jj])) {
-                            Log.i("Menu3", name[jj]);
+                        if (RecipesList.get(mm).getText().equals(name[0])) {
+
 
                             if (RecipesList.get(mm).isChecked()) {
 
-                                add_shppinglist();
-                                Log.i("Menu4", RecipesList.get(mm).getText());
 
-                            } else {
-                                Log.i("Menu", "noChecked");
-                                mm++;
+                                    add_shppinglist(name[1].toString(), name[2], name[3]);
+
+
+
+
+
+
+                            } 
                             }
 
                         }
 
                     }
 
-                }
+
+
 
 
 
@@ -205,17 +211,24 @@ public class RecipesActivity extends AppCompatActivity {
         // TODO Búsqueda de recetas ( V8)
     }
 
-    private void add_shppinglist() {
+    private void add_shppinglist(String ingre, String num, String unidades) {
 
-        // TODO enviarlo al Firebase -> son los arraylist: ing,  units, number (V4)
+       float num_f = Float.parseFloat(num);
+
+        String cad = ingre.concat(";").concat(num).concat(";").concat(unidades);
+
+
+        // S'ha de borrar els intents
 
                 Intent intent2 = new Intent(RecipesActivity.getAppContext(), ShoppingListActivity.class);
-                intent2.putExtra("ings", ing);
-                intent2.putExtra("nums", number);
-                intent2.putExtra("units", units);
-                startActivity(intent2);
 
+                intent2.putExtra("ings", ingre);
+                intent2.putExtra("nums", num);
+                intent2.putExtra("units", unidades);
 
+        dref = FirebaseDatabase.getInstance().getReference();
+        //TODO CUANDO JENNI CUELGUE VERSION 5 HAY QUE COGER EL CÓDIGO POR INTENT
+        dref.child(String.valueOf(3)).child(ingre).setValue(num.concat(" ").concat(unidades));
 
                 Log.i("Recipes", ing.get(0));
             }
@@ -233,3 +246,5 @@ public class RecipesActivity extends AppCompatActivity {
         return context;
     }
 }
+
+// Tortitas Pasta Azucar Cafe
