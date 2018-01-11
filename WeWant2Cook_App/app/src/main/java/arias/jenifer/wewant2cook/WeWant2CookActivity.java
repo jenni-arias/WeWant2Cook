@@ -16,11 +16,14 @@ public class WeWant2CookActivity extends AppCompatActivity {
 
     private Button btn_list;
     private Button btn_recipes;
+    private int code = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_we_want_2_cook);
-
+        Intent recibido = getIntent();
+        code = recibido.getIntExtra("code", -1);
         btn_list = (Button) findViewById(R.id.btn_list);
         btn_recipes = (Button) findViewById(R.id.btn_recipes);
 
@@ -28,6 +31,11 @@ public class WeWant2CookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), RecipesActivity.class);
+                if(code==-1) {
+                    intent.putExtra("code", 1);
+                }else{
+                    intent.putExtra("code", code);
+                }
                 startActivity(intent);
             }
         });
@@ -35,8 +43,14 @@ public class WeWant2CookActivity extends AppCompatActivity {
         btn_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(view.getContext(), ShoppingListActivity.class);
-                startActivity(intent2);
+                Intent intent = new Intent(view.getContext(), ShoppingListActivity.class);
+                if(code==-1) {
+                    intent.putExtra("code", 1);
+                }else{
+                    intent.putExtra("code", code);
+                }
+                startActivity(intent);
+
             }
         });
 
@@ -56,6 +70,7 @@ public class WeWant2CookActivity extends AppCompatActivity {
                 Log.i ("ActionBar", "Compartir");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 final EditText input = new EditText(this);
+                input.setText(String.valueOf(code));
                 builder.setView(input);
                 builder.setTitle("Copia el código siguiente:");
                 builder.setNegativeButton("Cerrar", null);
@@ -63,10 +78,9 @@ public class WeWant2CookActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_cerrar:
-                //TODO: Al Cerrar sesión se tienen que borrar los datos del usuario
                 Log.i ("ActionBar", "Cerrar");
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-                builder2.setTitle("Seguro que deseas cerrar la sesión?");
+                builder2.setTitle("¿Seguro que deseas cerrar la sesión?");
                 builder2.setMessage("Se eliminarán todo los datos");
 
                 builder2.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -74,6 +88,7 @@ public class WeWant2CookActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(WeWant2CookActivity.this, PreActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 });
                 builder2.setNegativeButton("Cancelar", null);

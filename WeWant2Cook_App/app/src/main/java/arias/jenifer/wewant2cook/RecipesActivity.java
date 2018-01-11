@@ -59,6 +59,8 @@ public class RecipesActivity extends AppCompatActivity {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
+        Intent received_intent = getIntent();
+        code = received_intent.getIntExtra("code", -1);
 
         list = (ListView) findViewById(R.id.recipes_list);
         btn_add = (Button) findViewById(R.id.btn_add);
@@ -228,7 +230,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         dref = FirebaseDatabase.getInstance().getReference();
         //TODO CUANDO JENNI CUELGUE VERSION 5 HAY QUE COGER EL CÓDIGO POR INTENT
-        dref.child(String.valueOf(3)).child(ingre).setValue(num.concat(" ").concat(unidades));
+        dref.child(String.valueOf(code)).child(ingre).setValue(num.concat(" ").concat(unidades));
 
                 Log.i("Recipes", ing.get(0));
             }

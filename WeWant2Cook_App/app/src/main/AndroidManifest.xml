@@ -22,39 +22,23 @@
         </activity>
 
         <activity android:name=".ShoppingListActivity"
-            android:label="@string/ShoppingList">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="ShoppingList">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".WeWant2CookActivity"
-            android:label="@string/PreActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="PreActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".RecipesActivity"
-            android:label="@string/PreActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="PreActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".IngredientsActivity"
             android:label="@string/PreActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
