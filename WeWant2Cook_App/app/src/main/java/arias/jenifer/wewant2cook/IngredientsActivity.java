@@ -23,6 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,65 @@ public class IngredientsActivity extends AppCompatActivity {
 
     private ArrayList<Ingredients_item> lista;
 
+    private static final String  FILENAME_INGR = "ingr.xt";
+    private static final int MAX_BYTES = 80000;
+
+    private void writeIngredientsList(){
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME_INGR, Context.MODE_PRIVATE);
+            for (int i=0; i < IngredientsList.size(); i++){
+                Ingredients_item it = IngredientsList.get(i);
+                String line = String.format("%s;%s;%f\n", it.getText(), it.getUnits(),it.getNumber());
+                fos.write(line.getBytes());
+                Log.i("Marta", line);
+            }
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("Marta", "writeItemList filenotfound");
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.e("Marta", "writeItemList IOEXception");
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void readIngredientsList(){
+        IngredientsList = new ArrayList<>();
+        try {
+            FileInputStream fis = openFileInput(FILENAME_INGR);
+            byte[] buffer_i = new byte[MAX_BYTES];
+            int nread = fis.read(buffer_i);
+            if (nread>0) {
+                String content = new String(buffer_i, 0, nread);
+                String[] lines = content.split("\n");
+                for (String line : lines) {
+                    String[] parts = line.split(";");
+                    IngredientsList.add(new Ingredients_item(parts[0], parts[1], Float.parseFloat(parts[2])));
+                    //IngredientsList.add(new Ingredients_item("Huevos","und",2));
+                    Log.i("Marta", "Dins readIngredients");
+                }
+                fis.close();
+            }
+
+        } catch (FileNotFoundException e) {
+            Log.i("Marta", "readItemList:  filenotfoundException");
+
+        } catch (IOException e) {
+            Log.e("Marta", "readItemList IOEXception");
+            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+       writeIngredientsList();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +118,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
         IngredientsList = new ArrayList<>();
 
+
         ingredient_adapter = new IngredientsAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -62,6 +126,10 @@ public class IngredientsActivity extends AppCompatActivity {
         );
 
         list.setAdapter(ingredient_adapter);
+
+        Intent intent = getIntent();
+        recipe_name = intent.getStringExtra("name");
+        readIngredientsList();
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,11 +185,12 @@ public class IngredientsActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        recipe_name = intent.getStringExtra("name");
+
     }
 
     private void addItem(String in1, int in2, String in3) {
+        //String n = Integer.toString(in2);
+        //float in2_f = Float.parseFloat(n);
         IngredientsList.add(new Ingredients_item(in1,in3,in2));
     }
 
@@ -137,6 +206,7 @@ public class IngredientsActivity extends AppCompatActivity {
         switch ((item.getItemId())) {
             case R.id.action_settings:
                 // Anem a RecipesActivity
+                writeIngredientsList();
                 int i =0;
                 lista = new ArrayList<>();
                 Intent data = new Intent();
@@ -155,9 +225,8 @@ public class IngredientsActivity extends AppCompatActivity {
                     ing.add(ingname);
                     units.add(uni);
                     number.add(num);
-
-
                 }
+
                 data.putExtra("ingredient",ing);
                 data.putExtra("number",number);
                 data.putExtra("units",units);
@@ -174,5 +243,4 @@ public class IngredientsActivity extends AppCompatActivity {
     public static Context getAppContext(){
         return context;
     }
-
 }

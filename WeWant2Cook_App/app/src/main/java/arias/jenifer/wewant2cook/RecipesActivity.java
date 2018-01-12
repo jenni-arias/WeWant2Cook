@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +58,63 @@ public class RecipesActivity extends AppCompatActivity {
     private ChildEventListener mListener;
     private int code;
 
+    private static final String  FILENAME_RECP = "recipes.xt";
+    private static final int MAX_BYTES = 80000;
+
+    private void writeRecipesList(){
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME_RECP, Context.MODE_PRIVATE);
+            for (int i=0; i < RecipesList.size(); i++){
+                Recipes_item it = RecipesList.get(i);
+                String line = String.format("%s;%b\n", it.getText(), it.isChecked());
+                fos.write(line.getBytes());
+            }
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("Marta", "writeItemList filenotfound");
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.e("Marta", "writeItemList IOEXception");
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void readRecipesList(){
+        RecipesList = new ArrayList<>();
+        try {
+            FileInputStream fis = openFileInput(FILENAME_RECP);
+            byte[] buffer = new byte[MAX_BYTES];
+            int nread = fis.read(buffer);
+            if (nread>0) {
+                String content = new String(buffer, 0, nread);
+                String[] lines = content.split("\n");
+                for (String line : lines) {
+                    String[] parts = line.split(";");
+                    RecipesList.add(new Recipes_item(parts[0], parts[1].equals("true")));
+                }
+                fis.close();
+            }
+
+        } catch (FileNotFoundException e) {
+            Log.i("Marta", "readItemList:  filenotfoundException");
+
+        } catch (IOException e) {
+            Log.e("Marta", "readItemList IOEXception");
+            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("Marta", "onStop()");
+        writeRecipesList();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +128,8 @@ public class RecipesActivity extends AppCompatActivity {
         btn_add = (Button) findViewById(R.id.btn_add);
 
         RecipesList = new ArrayList<>();
+
+        readRecipesList();
 
         recipes_adapter = new RecipesAdapter(
                 this,
@@ -98,7 +162,8 @@ public class RecipesActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 RecipesList.add(new Recipes_item(input.getText().toString(), false));
-                Log.i("Marta", input.getText().toString());
+                writeRecipesList();
+                Log.i("Marta", "WriteRecipeList()");
 
                 saveRecipe(input.getText().toString());
             }
@@ -110,9 +175,12 @@ public class RecipesActivity extends AppCompatActivity {
 
     public void saveRecipe(String n) {
         // Anem a IngredientsActivity
+        Log.i("Marta", "SaveRecipe()");
+
         Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
         intent.putExtra("name", n);
         startActivityForResult(intent, 0);
+        //Log.i("lifecycle","onStop");
     }
 
     // Venim de IngredientsActivity
@@ -122,8 +190,11 @@ public class RecipesActivity extends AppCompatActivity {
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK) {
 
+                    readRecipesList();
+                    Log.i("Marta","ReadRecipesList()");
+
                     String Recipe = data.getStringExtra("name");
-                    Log.i("Marta onActivityResult",Recipe); // això ho fa be!
+
 
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
