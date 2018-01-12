@@ -66,11 +66,6 @@ public class RecipesActivity extends AppCompatActivity {
         btn_add = (Button) findViewById(R.id.btn_add);
 
         RecipesList = new ArrayList<>();
-        RecipesList.add(new Recipes_item("Tortilla de patatas", true));
-        RecipesList.add(new Recipes_item("Pastel de Queso", false));
-        RecipesList.add(new Recipes_item("Brownies", false));
-        RecipesList.add(new Recipes_item("Puré de verduras", false));
-        RecipesList.add(new Recipes_item("Tortitas", false));
 
         recipes_adapter = new RecipesAdapter(
                 this,
@@ -80,14 +75,38 @@ public class RecipesActivity extends AppCompatActivity {
 
         list.setAdapter(recipes_adapter);
 
-        //RecipesList.add(new Recipes_item(Recipe, false));
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add_r();
 
-
-
-
-
+                Log.i("Marta", "click");
+            }
+        });
     }
 
+    private void add_r() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setTitle(R.string.confirm_add);
+
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                RecipesList.add(new Recipes_item(input.getText().toString(), false));
+                Log.i("Marta", input.getText().toString());
+
+                saveRecipe(input.getText().toString());
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.show();
+    }
 
     public void saveRecipe(String n) {
         // Anem a IngredientsActivity
@@ -104,14 +123,11 @@ public class RecipesActivity extends AppCompatActivity {
                 if (resultCode == AppCompatActivity.RESULT_OK) {
 
                     String Recipe = data.getStringExtra("name");
-                    Log.i("RecipeNAme",Recipe); // això ho fa be!
-
-
+                    Log.i("Marta onActivityResult",Recipe); // això ho fa be!
 
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
                     ArrayList<String> ingredientUnits = data.getStringArrayListExtra("units");
-
 
                     for (int i = 0; i < ingredientName.size(); i++) {
 
@@ -129,8 +145,6 @@ public class RecipesActivity extends AppCompatActivity {
 
                         IngredientsRecipies.add(concat);
 
-                       Log.i("Intent_concat", concat);
-                        Log.i("Intent_get", IngredientsRecipies.get(i));
                     }
                 }
         }
@@ -148,55 +162,34 @@ public class RecipesActivity extends AppCompatActivity {
         switch ((item.getItemId())) {
             case R.id.clear_cheched:
                 clearChecked();
-                Log.i("Menu", "Clear checked");
+                Log.i("Marta", "Clear checked");
                 return true;
             case R.id.clear_all:
                 clearAll();
-                Log.i("Menu", "Clear all");
+                Log.i("Marta", "Clear all");
                 return true;
             case R.id.add_shoppinglist:
 
                 int mm;
                 int jj;
-               // for ( mm = 0; mm<RecipesList.size(); mm++) {
-                //while(mm < RecipesList.size()) {
-
-                    Log.i("Menu1", RecipesList.size() + "");
 
                     for (jj = 0; jj < IngredientsRecipies.size(); jj++) {
                         for ( mm = 0; mm<RecipesList.size(); mm++) {
-                        Log.i("Menu2", jj + "");
+
 
                         String[] name = IngredientsRecipies.get(jj).split(";");
-                        Log.i("Menu2.1", name[1] );
-                        //Log.i("Menu2.1", RecipesList.get(mm).getText());
-
 
                         if (RecipesList.get(mm).getText().equals(name[0])) {
 
-
                             if (RecipesList.get(mm).isChecked()) {
 
-
                                     add_shppinglist(name[1].toString(), name[2], name[3]);
-
-
-
-
-
-
                             } 
                             }
 
                         }
 
                     }
-
-
-
-
-
-
                 recipes_adapter.notifyDataSetChanged();
 
                 return true;
@@ -229,7 +222,7 @@ public class RecipesActivity extends AppCompatActivity {
                 intent2.putExtra("units", unidades);
 
         dref = FirebaseDatabase.getInstance().getReference();
-        //TODO CUANDO JENNI CUELGUE VERSION 5 HAY QUE COGER EL CÓDIGO POR INTENT
+
         dref.child(String.valueOf(code)).child(ingre).setValue(num.concat(" ").concat(unidades));
 
                 Log.i("Recipes", ing.get(0));
@@ -238,9 +231,37 @@ public class RecipesActivity extends AppCompatActivity {
 
     private void clearAll() {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(R.string.confirm_clear_all);
+        builder.setPositiveButton(R.string.clear_all, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                RecipesList.clear();
+                recipes_adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.create().show();
+
     }
 
     private void clearChecked() {
+
+        int i = 0;
+        while (i < RecipesList.size()) {
+            Log.i("Marta", RecipesList.size()+"" );
+            if (RecipesList.get(i).isChecked()) {
+                Log.i("Marta", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
+                RecipesList.remove(i);
+
+
+            } else {
+                Log.i("Marta", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
+                i++;
+            }
+        }
+        recipes_adapter.notifyDataSetChanged();
 
     }
 
@@ -248,5 +269,3 @@ public class RecipesActivity extends AppCompatActivity {
         return context;
     }
 }
-
-// Tortitas Pasta Azucar Cafe

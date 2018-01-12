@@ -17,6 +17,8 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,37 +54,6 @@ public class IngredientsActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.ingredients_list);
 
         IngredientsList = new ArrayList<>();
-        //Ingredientes aleatorios para probar
-        Random r = new Random();
-        int i1 = r.nextInt(80 - 2) + 2;
-
-        IngredientsList = new ArrayList<>();
-        if(i1 > 70) {
-            IngredientsList.add(new Ingredients_item("Huevos", "unidad", 4));
-            IngredientsList.add(new Ingredients_item("Mantequilla", "gr", 100));
-            IngredientsList.add(new Ingredients_item("Harina", "gr", 80));
-        }else if(i1 > 60){
-            IngredientsList.add(new Ingredients_item("Pasta", "unidad", 4));
-            IngredientsList.add(new Ingredients_item("Azúcar", "gr", 100));
-            IngredientsList.add(new Ingredients_item("Café", "gr", 80));
-        }else if(i1>50){
-            IngredientsList.add(new Ingredients_item("Chocolate", "unidad", 4));
-            IngredientsList.add(new Ingredients_item("Nestea", "gr", 100));
-            IngredientsList.add(new Ingredients_item("Arroz", "gr", 80));
-        }else if(i1>40){
-            IngredientsList.add(new Ingredients_item("Cereales", "unidad", 4));
-        }else if(i1>30){
-            IngredientsList.add(new Ingredients_item("Leche", "unidad", 4));
-        }else if(i1>20){
-            IngredientsList.add(new Ingredients_item("Nesquick", "unidad", 4));
-        }else if(i1>10){
-            IngredientsList.add(new Ingredients_item("Batido", "unidad", 4));
-        }else{
-            IngredientsList.add(new Ingredients_item("Galletas", "unidad", 4));
-        }
-
-
-
 
         ingredient_adapter = new IngredientsAdapter(
                 this,
@@ -98,14 +69,60 @@ public class IngredientsActivity extends AppCompatActivity {
 
                 Log.e("Marta", "btn_add");
 
-                Toast.makeText(getBaseContext(), "Has clicat el button", Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                LinearLayout lila1= new LinearLayout(context);
+                lila1.setOrientation(LinearLayout.VERTICAL);
+                final EditText input = new EditText(context);
+                final EditText input1 = new EditText(context);
+                final EditText input2 = new EditText(context);
+                final TextView text1 = new TextView(context);
+                text1.setText("Nombre del ingrediente");
+                final TextView text2 = new TextView(context);
+                text2.setText("Cantidad");
+                final TextView text3 = new TextView(context);
+                text3.setText("Unidades");
+                lila1.addView(text1);
+                lila1.addView(input);
+                lila1.addView(text2);
+                lila1.addView(input1);
+                lila1.addView(text3);
+                lila1.addView(input2);
+                alert.setView(lila1);
+                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                alert.setPositiveButton("Guardar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                int in2;
+                                String in1 =input.getText().toString();
+                                if(!input1.getText().toString().isEmpty()) {
+                                    in2 = Integer.parseInt(input1.getText().toString());
+                                }else{
+                                    in2 = 0;
+                                }
+                                String in3 = input2.getText().toString();
+                                if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
+                                    addItem(in1, in2, in3);
+                                    dialog.cancel();
+                                }else{
+                                    String value = "Complete todos los campos";
+                                    Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();                                }
+                            }
 
-
+                        });
+                alert.create().show();
             }
         });
 
         Intent intent = getIntent();
         recipe_name = intent.getStringExtra("name");
+    }
+
+    private void addItem(String in1, int in2, String in3) {
+        IngredientsList.add(new Ingredients_item(in1,in3,in2));
     }
 
     @Override
