@@ -59,7 +59,7 @@ public class RecipesActivity extends AppCompatActivity {
     private ChildEventListener mListener;
     private int code;
 
-    private static final String  FILENAME_RECP = "recipes.xt";
+    private static final String  FILENAME_RECP = "recipes.txt";
     private static final int MAX_BYTES = 80000;
 
     private void writeRecipesList(){
@@ -260,8 +260,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                                     add_shppinglist(name[1].toString(), name[2], name[3]);
                             } 
-                            }
-
+                        }
                         }
 
                     }

@@ -48,7 +48,11 @@ public class IngredientsActivity extends AppCompatActivity {
 
     private ArrayList<Ingredients_item> lista;
 
-    private static final String  FILENAME_INGR = "ingr.xt";
+    //private static final String  FILENAME_INGR = "ingr.txt";
+    private static final String  FILENAME_INGR = "ING.txt";
+
+
+
     private static final int MAX_BYTES = 80000;
 
     private void writeIngredientsList(){
@@ -57,9 +61,9 @@ public class IngredientsActivity extends AppCompatActivity {
             FileOutputStream fos = openFileOutput(FILENAME_INGR, Context.MODE_PRIVATE);
             for (int i=0; i < IngredientsList.size(); i++){
                 Ingredients_item it = IngredientsList.get(i);
-                String line = String.format("%s;%s;%f\n", it.getText(), it.getUnits(),it.getNumber());
+                String line = String.format("%s;%s;%s;%5f\n", recipe_name, it.getText(), it.getUnits(),it.getNumber());
                 fos.write(line.getBytes());
-                Log.i("Marta", line);
+                Log.i("Marta Què escriu", line);
             }
             fos.close();
 
@@ -79,14 +83,26 @@ public class IngredientsActivity extends AppCompatActivity {
             FileInputStream fis = openFileInput(FILENAME_INGR);
             byte[] buffer_i = new byte[MAX_BYTES];
             int nread = fis.read(buffer_i);
+
             if (nread>0) {
                 String content = new String(buffer_i, 0, nread);
                 String[] lines = content.split("\n");
                 for (String line : lines) {
                     String[] parts = line.split(";");
-                    IngredientsList.add(new Ingredients_item(parts[0], parts[1], Float.parseFloat(parts[2])));
-                    //IngredientsList.add(new Ingredients_item("Huevos","und",2));
+
+                    if ( parts[0].equals(recipe_name)){
+                        String[] parts2 = parts[3].split(",");
+
+                        Log.i("Marta Parts2", Float.valueOf(parts2[0])+"");
+                        addItem(parts[1],Float.valueOf(parts2[0]),parts[2]);
+                        //IngredientsList.add(new Ingredients_item(parts[1], parts[2], Float.valueOf(parts2[0])));
+
+
+                    }
+
                     Log.i("Marta", "Dins readIngredients");
+                    //IngredientsList.add(new Ingredients_item("Pa","Barres",2));
+                    //ingredient_adapter.notifyDataSetChanged();
                 }
                 fis.close();
             }
@@ -120,7 +136,6 @@ public class IngredientsActivity extends AppCompatActivity {
 
         IngredientsList = new ArrayList<>();
 
-
         ingredient_adapter = new IngredientsAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -129,6 +144,8 @@ public class IngredientsActivity extends AppCompatActivity {
 
         list.setAdapter(ingredient_adapter);
 
+       // IngredientsList.add(new Ingredients_item("Pa","Barres",2));
+
         Intent intent = getIntent();
         recipe_name = intent.getStringExtra("name");
         readIngredientsList();
@@ -136,8 +153,14 @@ public class IngredientsActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //float xx = 3;
 
-                Log.e("Marta", "btn_add");
+                Log.i("Marta", "btn_add");
+                //addItem("Huevos",xx,"unds");
+                //ingredient_adapter.notifyDataSetChanged();
+                //IngredientsList.add(new Ingredients_item("Huevos","Barres",2));
+                //ingredient_adapter.notifyDataSetChanged();
+                //Log.i("Marta AddItem", IngredientsList.get(1).getText());
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 LinearLayout lila1= new LinearLayout(context);
@@ -166,16 +189,17 @@ public class IngredientsActivity extends AppCompatActivity {
                 alert.setPositiveButton("Guardar",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                int in2;
+                                float in2;
                                 String in1 =input.getText().toString();
                                 if(!input1.getText().toString().isEmpty()) {
-                                    in2 = Integer.parseInt(input1.getText().toString());
+                                    in2 = Float.valueOf(input1.getText().toString());
                                 }else{
                                     in2 = 0;
                                 }
                                 String in3 = input2.getText().toString();
                                 if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
                                     addItem(in1, in2, in3);
+                                    Log.i("Marta Dins el if","addItem if");
                                     dialog.cancel();
                                 }else{
                                     String value = "Complete todos los campos";
@@ -190,10 +214,15 @@ public class IngredientsActivity extends AppCompatActivity {
 
     }
 
-    private void addItem(String in1, int in2, String in3) {
-        //String n = Integer.toString(in2);
-        //float in2_f = Float.parseFloat(n);
+    public void addItem(String in1, Float in2, String in3) {
+
+
         IngredientsList.add(new Ingredients_item(in1,in3,in2));
+        //IngredientsList.add(new Ingredients_item("Huevos","unds",5));
+       // IngredientsList.add(new Ingredients_item("Pa","Barres",2));
+        //ingredient_adapter.notifyDataSetChanged();
+        Log.i("Marta AddItem", IngredientsList.get(0).getText());
+
     }
 
     @Override
@@ -208,7 +237,7 @@ public class IngredientsActivity extends AppCompatActivity {
         switch ((item.getItemId())) {
             case R.id.action_settings:
                 // Anem a RecipesActivity
-                writeIngredientsList();
+               // writeIngredientsList();
                 int i =0;
                 lista = new ArrayList<>();
                 Intent data = new Intent();
