@@ -312,6 +312,7 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 RecipesList.clear();
+                deleteFile(FILENAME_CODE);
                 recipes_adapter.notifyDataSetChanged();
             }
         });

@@ -78,7 +78,7 @@ public class IngredientsActivity extends AppCompatActivity {
     }
 
     private void readIngredientsList(){
-        IngredientsList = new ArrayList<>();
+
         try {
             FileInputStream fis = openFileInput(FILENAME_INGR);
             byte[] buffer_i = new byte[MAX_BYTES];
@@ -186,33 +186,42 @@ public class IngredientsActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-                alert.setPositiveButton("Guardar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                float in2;
-                                String in1 =input.getText().toString();
-                                if(!input1.getText().toString().isEmpty()) {
-                                    in2 = Float.valueOf(input1.getText().toString());
-                                }else{
-                                    in2 = 0;
-                                }
-                                String in3 = input2.getText().toString();
-                                if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
-                                    addItem(in1, in2, in3);
-                                    Log.i("Marta Dins el if","addItem if");
-                                    dialog.cancel();
-                                }else{
-                                    String value = "Complete todos los campos";
-                                    Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();                                }
-                            }
-
-                        });
+                alert.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        float in2;
+                        String in1 =input.getText().toString();
+                        if(!input.getText().toString().isEmpty()) {
+                            in2 = Float.valueOf(input1.getText().toString());
+                        }else{
+                            in2 = 0;
+                        }
+                        String in3 = input2.getText().toString();
+                        if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
+                            addItem(in1, in2, in3);
+                            Log.i("Marta Dins el if", "addItem if");
+                            dialog.cancel();
+                        }else{
+                            String value = "Complete todos los campos";
+                            Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();                                }
+                    }
+                });
                 alert.create().show();
             }
+
+
+
+
+
+
+            //addItem();
+            //}
         });
 
-
     }
+
+
+
 
     public void addItem(String in1, Float in2, String in3) {
 
