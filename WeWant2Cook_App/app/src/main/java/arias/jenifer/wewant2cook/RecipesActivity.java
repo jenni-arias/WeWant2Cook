@@ -46,6 +46,7 @@ public class RecipesActivity extends AppCompatActivity {
     private Button btn_add;
     private RecipesAdapter recipes_adapter;
     public static Context context;
+    private static final String  FILENAME_CODE = "code.txt";
 
     ArrayList<String> ing = new ArrayList<String>();
     ArrayList<String> units = new ArrayList<String>();
@@ -74,10 +75,10 @@ public class RecipesActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeItemList filenotfound");
-            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No se puede escribir", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeItemList IOEXception");
-            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -103,7 +104,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e("Marta", "readItemList IOEXception");
-            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -111,7 +112,8 @@ public class RecipesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Marta", "onStop()");
+        Log.i("Hugo", "onStop()");
+        writeCode();
         writeRecipesList();
     }
 
@@ -123,6 +125,7 @@ public class RecipesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipes);
         Intent received_intent = getIntent();
         code = received_intent.getIntExtra("code", -1);
+
 
         list = (ListView) findViewById(R.id.recipes_list);
         btn_add = (Button) findViewById(R.id.btn_add);
@@ -179,6 +182,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
         intent.putExtra("name", n);
+        intent.putExtra("code", code);
         startActivityForResult(intent, 0);
         //Log.i("lifecycle","onStop");
     }
@@ -338,5 +342,32 @@ public class RecipesActivity extends AppCompatActivity {
 
     public static Context getAppContext() {
         return context;
+    }
+    private void writeCode(){
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME_CODE, Context.MODE_PRIVATE);
+
+            String line = String.valueOf(code);
+            fos.write(line.getBytes());
+            Log.i("Marta", line);
+
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("Marta", "writeCode filenotfound");
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.e("Marta", "writeCode IOEXception");
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        writeCode();
     }
 }

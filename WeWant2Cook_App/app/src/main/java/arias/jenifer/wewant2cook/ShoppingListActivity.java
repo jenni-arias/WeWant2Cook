@@ -29,6 +29,10 @@ import com.google.firebase.*;
 
 import org.w3c.dom.Text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity {
@@ -40,6 +44,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     private ArrayList<ShoppingItem> ShoppingList;
     private ArrayList<ShoppingItem> ShoppingListFromRecipies;
     private ShoppingListAdapter shoppinglist_adapter;
+    private static final String  FILENAME_CODE = "code.txt";
+    private static final int MAX_BYTES = 80000;
 
     public static Context context;
 
@@ -63,7 +69,8 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        code = intent.getIntExtra("code", 1);
+        code = intent.getIntExtra("code", -1);
+        Log.i("Hugo", String.valueOf(code));
 
         shoppinglist_adapter = new ShoppingListAdapter(
                 this,
@@ -231,7 +238,63 @@ public class ShoppingListActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        writeCode();
         dref.removeEventListener(mListener);
     }
+
+
+    private void writeCode(){
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME_CODE, Context.MODE_PRIVATE);
+
+                String line = String.valueOf(code);
+                fos.write(line.getBytes());
+                Log.i("Marta", line);
+
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("Marta", "writeCode filenotfound");
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.e("Marta", "writeCode IOEXception");
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void readCode(){
+        try {
+            FileInputStream fis = openFileInput(FILENAME_CODE);
+            byte[] buffer_i = new byte[MAX_BYTES];
+            int nread = fis.read(buffer_i);
+            if (nread>0) {
+                String content = new String(buffer_i, 0, nread);
+                int code = Integer.parseInt(content);
+                fis.close();
+            }
+
+        } catch (FileNotFoundException e) {
+            Log.i("Marta", "readCode:  filenotfoundException");
+
+        } catch (IOException e) {
+            Log.e("Marta", "readCode IOEXception");
+            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("Hugo", "onStop()");
+        writeCode();
+
+    }
+
+
+
+
+
 
 }

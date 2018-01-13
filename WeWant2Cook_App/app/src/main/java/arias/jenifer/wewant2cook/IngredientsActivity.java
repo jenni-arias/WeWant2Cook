@@ -40,6 +40,7 @@ public class IngredientsActivity extends AppCompatActivity {
     private ListView list;
     private Button btn_add;
     private String recipe_name;
+    private static final String  FILENAME_CODE = "code.txt";
 
     public static Context context;
 
@@ -64,10 +65,10 @@ public class IngredientsActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeItemList filenotfound");
-            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeItemList IOEXception");
-            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -95,7 +96,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e("Marta", "readItemList IOEXception");
-            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -112,6 +113,7 @@ public class IngredientsActivity extends AppCompatActivity {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
+
 
         btn_add = (Button) findViewById(R.id.btn_add);
         list = (ListView) findViewById(R.id.ingredients_list);
@@ -243,4 +245,7 @@ public class IngredientsActivity extends AppCompatActivity {
     public static Context getAppContext(){
         return context;
     }
+
+
+
 }

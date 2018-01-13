@@ -14,11 +14,7 @@
 
         <activity android:name=".PreActivity"
             android:label="@string/PreActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ShoppingListActivity"
@@ -28,6 +24,11 @@
 
         <activity android:name=".WeWant2CookActivity"
             android:label="PreActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
