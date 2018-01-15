@@ -49,6 +49,7 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         final Recipes_item item = getItem(position);
         checkbox.setText(item.getText());
         checkbox.setChecked(item.isChecked());
+
         checkbox.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -61,7 +62,7 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
             @Override
             public void onClick(View view) {
                 item.toggleleChecked();
-                Log.i("Menu", item.isChecked()+"");
+                Log.i("Marta checked Adapter", item.getText()+item.isChecked()+"");
             }
         });
         return result;

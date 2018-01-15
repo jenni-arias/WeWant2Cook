@@ -43,7 +43,7 @@ public class RecipesActivity extends AppCompatActivity {
 
     private ArrayList<Recipes_item> RecipesList;
     private ListView list;
-    private Button btn_add;
+    private Button btn_addR;
     private RecipesAdapter recipes_adapter;
     public static Context context;
     private static final String  FILENAME_CODE = "code.txt";
@@ -63,6 +63,7 @@ public class RecipesActivity extends AppCompatActivity {
     private static final int MAX_BYTES = 80000;
 
     private void writeRecipesList(){
+        Log.i("Marta", "WriteRecipeList()");
 
         try {
             FileOutputStream fos = openFileOutput(FILENAME_RECP, Context.MODE_PRIVATE);
@@ -95,6 +96,7 @@ public class RecipesActivity extends AppCompatActivity {
                 for (String line : lines) {
                     String[] parts = line.split(";");
                     RecipesList.add(new Recipes_item(parts[0], parts[1].equals("true")));
+                    Log.i("Marta Què llegeix: ", line);
                 }
                 fis.close();
             }
@@ -112,7 +114,7 @@ public class RecipesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Hugo", "onStop()");
+        Log.i("Marta", "onStop()");
         writeCode();
         writeRecipesList();
     }
@@ -128,7 +130,7 @@ public class RecipesActivity extends AppCompatActivity {
 
 
         list = (ListView) findViewById(R.id.recipes_list);
-        btn_add = (Button) findViewById(R.id.btn_add);
+        btn_addR = (Button) findViewById(R.id.btn_addR);
 
         RecipesList = new ArrayList<>();
 
@@ -142,10 +144,11 @@ public class RecipesActivity extends AppCompatActivity {
 
         list.setAdapter(recipes_adapter);
 
-        btn_add.setOnClickListener(new View.OnClickListener() {
+        btn_addR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 add_r();
+
 
                 Log.i("Marta", "click");
             }
@@ -164,9 +167,7 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                RecipesList.add(new Recipes_item(input.getText().toString(), false));
-                writeRecipesList();
-                Log.i("Marta", "WriteRecipeList()");
+                String in = input.getText().toString();
 
                 saveRecipe(input.getText().toString());
             }
@@ -184,7 +185,6 @@ public class RecipesActivity extends AppCompatActivity {
         intent.putExtra("name", n);
         intent.putExtra("code", code);
         startActivityForResult(intent, 0);
-        //Log.i("lifecycle","onStop");
     }
 
     // Venim de IngredientsActivity
@@ -194,11 +194,11 @@ public class RecipesActivity extends AppCompatActivity {
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK) {
 
-                    readRecipesList();
-                    Log.i("Marta","ReadRecipesList()");
-
+                    //readRecipesList();
                     String Recipe = data.getStringExtra("name");
+                    RecipesList.add(new Recipes_item(Recipe, false));
 
+                    Log.i("Marta","ReadRecipesList()");
 
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
@@ -214,9 +214,7 @@ public class RecipesActivity extends AppCompatActivity {
                         units.add(uni);
                         number.add(num);
 
-
                         String concat = Recipe+";"+ingname+";"+num+";"+uni;
-                        // TODO que no es repateixin les receptes
 
                         IngredientsRecipies.add(concat);
 
@@ -259,7 +257,7 @@ public class RecipesActivity extends AppCompatActivity {
                             if (RecipesList.get(mm).isChecked()) {
 
                                     add_shppinglist(name[1].toString(), name[2], name[3]);
-                            } 
+                            }
                         }
                         }
 
@@ -312,7 +310,7 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 RecipesList.clear();
-                deleteFile(FILENAME_CODE);
+                //deleteFile(FILENAME_CODE);
                 recipes_adapter.notifyDataSetChanged();
             }
         });
@@ -327,12 +325,12 @@ public class RecipesActivity extends AppCompatActivity {
         while (i < RecipesList.size()) {
             Log.i("Marta", RecipesList.size()+"" );
             if (RecipesList.get(i).isChecked()) {
-                Log.i("Marta", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
+                Log.i("Marta is checked", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
                 RecipesList.remove(i);
 
 
             } else {
-                Log.i("Marta", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
+                Log.i("Marta is not checked", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
                 i++;
             }
         }
@@ -369,5 +367,6 @@ public class RecipesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         writeCode();
+        Log.e("Marta", "onDestroy");
     }
 }

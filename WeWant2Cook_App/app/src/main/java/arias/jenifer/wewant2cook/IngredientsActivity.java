@@ -48,7 +48,6 @@ public class IngredientsActivity extends AppCompatActivity {
 
     private ArrayList<Ingredients_item> lista;
 
-    //private static final String  FILENAME_INGR = "ingr.txt";
     private static final String  FILENAME_INGR = "ING.txt";
 
 
@@ -95,14 +94,11 @@ public class IngredientsActivity extends AppCompatActivity {
 
                         Log.i("Marta Parts2", Float.valueOf(parts2[0])+"");
                         addItem(parts[1],Float.valueOf(parts2[0]),parts[2]);
-                        //IngredientsList.add(new Ingredients_item(parts[1], parts[2], Float.valueOf(parts2[0])));
-
 
                     }
 
                     Log.i("Marta", "Dins readIngredients");
-                    //IngredientsList.add(new Ingredients_item("Pa","Barres",2));
-                    //ingredient_adapter.notifyDataSetChanged();
+
                 }
                 fis.close();
             }
@@ -153,14 +149,8 @@ public class IngredientsActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //float xx = 3;
 
                 Log.i("Marta", "btn_add");
-                //addItem("Huevos",xx,"unds");
-                //ingredient_adapter.notifyDataSetChanged();
-                //IngredientsList.add(new Ingredients_item("Huevos","Barres",2));
-                //ingredient_adapter.notifyDataSetChanged();
-                //Log.i("Marta AddItem", IngredientsList.get(1).getText());
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 LinearLayout lila1= new LinearLayout(context);
@@ -191,12 +181,13 @@ public class IngredientsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         float in2;
                         String in1 =input.getText().toString();
-                        if(!input.getText().toString().isEmpty()) {
-                            in2 = Float.valueOf(input1.getText().toString());
-                        }else{
+                        String in3 = input2.getText().toString();
+
+                        if(input1.getText().toString().isEmpty()){
                             in2 = 0;
                         }
-                        String in3 = input2.getText().toString();
+                        else { in2 = Float.valueOf(input1.getText().toString());;}
+
                         if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
                             addItem(in1, in2, in3);
                             Log.i("Marta Dins el if", "addItem if");
@@ -227,9 +218,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
 
         IngredientsList.add(new Ingredients_item(in1,in3,in2));
-        //IngredientsList.add(new Ingredients_item("Huevos","unds",5));
-       // IngredientsList.add(new Ingredients_item("Pa","Barres",2));
-        //ingredient_adapter.notifyDataSetChanged();
+
         Log.i("Marta AddItem", IngredientsList.get(0).getText());
 
     }
@@ -246,7 +235,7 @@ public class IngredientsActivity extends AppCompatActivity {
         switch ((item.getItemId())) {
             case R.id.action_settings:
                 // Anem a RecipesActivity
-               // writeIngredientsList();
+
                 int i =0;
                 lista = new ArrayList<>();
                 Intent data = new Intent();

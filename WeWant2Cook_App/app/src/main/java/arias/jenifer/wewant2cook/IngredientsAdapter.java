@@ -64,7 +64,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
             }
         } );
 
-        // TODO poder editar bé les unitats: ara funciona pero molt raro
+
 
         units.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
