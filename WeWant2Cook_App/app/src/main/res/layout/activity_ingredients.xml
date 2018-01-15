@@ -7,15 +7,17 @@
     tools:context="arias.jenifer.wewant2cook.IngredientsActivity">
 
     <Button
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btn_addR"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="41dp"
+        android:layout_marginBottom="18dp"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textSize="30sp"
         android:text="+" />
 
     <TextView
@@ -28,8 +30,8 @@
         android:layout_marginLeft="33dp"
         android:layout_marginStart="33dp"
         android:layout_marginTop="22dp"
-        android:layout_toLeftOf="@+id/btn_add"
-        android:layout_toStartOf="@+id/btn_add"
+        android:layout_toLeftOf="@+id/btn_addR"
+        android:layout_toStartOf="@+id/btn_addR"
         android:padding="10sp"
         android:text="@string/Ingredients"
         android:textSize="30sp" />

@@ -44,8 +44,6 @@ public class PreActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 final Intent intent = new Intent(v.getContext(), WeWant2CookActivity.class);
-                //final int new_code = 0;
-                Log.i("Hugo", "Entra");
                 dref = FirebaseDatabase.getInstance().getReference();
                 dref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -55,13 +53,12 @@ public class PreActivity extends AppCompatActivity {
                             do{
                                 int min = 0;
                                 int max = 5000;
-
                                 Random r = new Random();
                                 code = r.nextInt(max - min + 1) + min;
                             }
-
                             while(snapshot.hasChild(String.valueOf(code)));
-                        } intent.putExtra("code",code);
+                        }
+                        intent.putExtra("code",code);
                         startActivityForResult(intent,0);
                     } @Override
                     public void onCancelled(DatabaseError databaseError) {

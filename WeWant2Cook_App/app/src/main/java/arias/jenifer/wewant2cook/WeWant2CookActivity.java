@@ -85,24 +85,23 @@ public class WeWant2CookActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_compartir:
-                //TODO: En el EditText tiene que aparecer el código del Firebase para compartir
                 Log.i ("ActionBar", "Compartir");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 final EditText input = new EditText(this);
                 input.setText(String.valueOf(code));
                 builder.setView(input);
-                builder.setTitle("Copia el código siguiente:");
-                builder.setNegativeButton("Cerrar", null);
+                builder.setTitle(R.string.copia_codigo);
+                builder.setNegativeButton(R.string.cerrar, null);
                 builder.show();
                 return true;
 
             case R.id.action_cerrar:
                 Log.i ("ActionBar", "Cerrar");
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-                builder2.setTitle("¿Seguro que deseas cerrar la sesión?");
-                builder2.setMessage("Se eliminarán todo los datos");
+                builder2.setTitle(R.string.seguro_cerrar);
+                builder2.setMessage(R.string.eliminar_datos);
 
-                builder2.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                builder2.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteFile(FILENAME_CODE);
@@ -111,9 +110,8 @@ public class WeWant2CookActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-                builder2.setNegativeButton("Cancelar", null);
+                builder2.setNegativeButton(R.string.cancelar, null);
                 builder2.show();
-                
                 return true;
 
             default:
@@ -134,10 +132,10 @@ public class WeWant2CookActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeCode filenotfound");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeCode IOEXception");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -158,7 +156,7 @@ public class WeWant2CookActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e("Marta", "readCode IOEXception");
-            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -175,7 +173,5 @@ public class WeWant2CookActivity extends AppCompatActivity {
         Log.i("Hugo","Wewant2cook on stop: " +String.valueOf(code));
         writeCode();
     }
-
-
 }
 

@@ -6,7 +6,6 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/guardar"
         android:orderInCategory="100"
-        android:title="SAVE"
         ndroid:showAsAction="always" />
 
 </menu>

@@ -63,7 +63,6 @@ public class RecipesActivity extends AppCompatActivity {
     private static final int MAX_BYTES = 80000;
 
     private void writeRecipesList(){
-        Log.i("Marta", "WriteRecipeList()");
 
         try {
             FileOutputStream fos = openFileOutput(FILENAME_RECP, Context.MODE_PRIVATE);
@@ -76,10 +75,10 @@ public class RecipesActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeItemList filenotfound");
-            Toast.makeText(this,"No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeItemList IOEXception");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -106,9 +105,8 @@ public class RecipesActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e("Marta", "readItemList IOEXception");
-            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotread , Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -128,12 +126,10 @@ public class RecipesActivity extends AppCompatActivity {
         Intent received_intent = getIntent();
         code = received_intent.getIntExtra("code", -1);
 
-
         list = (ListView) findViewById(R.id.recipes_list);
         btn_addR = (Button) findViewById(R.id.btn_addR);
 
         RecipesList = new ArrayList<>();
-
         readRecipesList();
 
         recipes_adapter = new RecipesAdapter(
@@ -141,15 +137,12 @@ public class RecipesActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 RecipesList
         );
-
         list.setAdapter(recipes_adapter);
 
         btn_addR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 add_r();
-
-
                 Log.i("Marta", "click");
             }
         });
@@ -173,7 +166,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setNegativeButton(R.string.cancelar, null);
         builder.show();
     }
 
@@ -215,9 +208,7 @@ public class RecipesActivity extends AppCompatActivity {
                         number.add(num);
 
                         String concat = Recipe+";"+ingname+";"+num+";"+uni;
-
                         IngredientsRecipies.add(concat);
-
                     }
                 }
         }
@@ -235,40 +226,29 @@ public class RecipesActivity extends AppCompatActivity {
         switch ((item.getItemId())) {
             case R.id.clear_cheched:
                 clearChecked();
-                Log.i("Marta", "Clear checked");
+                Log.i("Menu", "Clear checked");
                 return true;
             case R.id.clear_all:
                 clearAll();
-                Log.i("Marta", "Clear all");
+                Log.i("Menu", "Clear all");
                 return true;
             case R.id.add_shoppinglist:
-
                 int mm;
                 int jj;
-
-                    for (jj = 0; jj < IngredientsRecipies.size(); jj++) {
-                        for ( mm = 0; mm<RecipesList.size(); mm++) {
-
-
+                for (jj = 0; jj < IngredientsRecipies.size(); jj++) {
+                    for ( mm = 0; mm<RecipesList.size(); mm++) {
                         String[] name = IngredientsRecipies.get(jj).split(";");
-
                         if (RecipesList.get(mm).getText().equals(name[0])) {
-
                             if (RecipesList.get(mm).isChecked()) {
-
-                                    add_shppinglist(name[1].toString(), name[2], name[3]);
+                                add_shppinglist(name[1].toString(), name[2], name[3]);
                             }
                         }
-                        }
-
                     }
+                }
                 recipes_adapter.notifyDataSetChanged();
-
                 return true;
-
             case R.id.action_buscar:
                 SearchRecipe();
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -279,30 +259,22 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void add_shppinglist(String ingre, String num, String unidades) {
-
-       float num_f = Float.parseFloat(num);
-
+        float num_f = Float.parseFloat(num);
         String cad = ingre.concat(";").concat(num).concat(";").concat(unidades);
-
-
         // S'ha de borrar els intents
 
-                Intent intent2 = new Intent(RecipesActivity.getAppContext(), ShoppingListActivity.class);
-
-                intent2.putExtra("ings", ingre);
-                intent2.putExtra("nums", num);
-                intent2.putExtra("units", unidades);
+        Intent intent2 = new Intent(RecipesActivity.getAppContext(), ShoppingListActivity.class);
+        intent2.putExtra("ings", ingre);
+        intent2.putExtra("nums", num);
+        intent2.putExtra("units", unidades);
 
         dref = FirebaseDatabase.getInstance().getReference();
-
         dref.child(String.valueOf(code)).child(ingre).setValue(num.concat(" ").concat(unidades));
-
-                Log.i("Recipes", ing.get(0));
-            }
+        Log.i("Recipes", ing.get(0));
+    }
 
 
     private void clearAll() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.confirm);
         builder.setMessage(R.string.confirm_clear_all);
@@ -314,33 +286,29 @@ public class RecipesActivity extends AppCompatActivity {
                 recipes_adapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setNegativeButton(R.string.cancelar, null);
         builder.create().show();
-
     }
 
     private void clearChecked() {
-
         int i = 0;
         while (i < RecipesList.size()) {
             Log.i("Marta", RecipesList.size()+"" );
             if (RecipesList.get(i).isChecked()) {
                 Log.i("Marta is checked", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
                 RecipesList.remove(i);
-
-
             } else {
                 Log.i("Marta is not checked", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
                 i++;
             }
         }
         recipes_adapter.notifyDataSetChanged();
-
     }
 
     public static Context getAppContext() {
         return context;
     }
+
     private void writeCode(){
 
         try {
@@ -349,24 +317,21 @@ public class RecipesActivity extends AppCompatActivity {
             String line = String.valueOf(code);
             fos.write(line.getBytes());
             Log.i("Marta", line);
-
             fos.close();
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeCode filenotfound");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeCode IOEXception");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         writeCode();
-        Log.e("Marta", "onDestroy");
     }
 }

@@ -18,12 +18,12 @@
         </activity>
 
         <activity android:name=".ShoppingListActivity"
-            android:label="ShoppingList">
+            android:label="@string/ShoppingList">
 
         </activity>
 
         <activity android:name=".WeWant2CookActivity"
-            android:label="PreActivity">
+            android:label="@string/wewant2cook">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,12 +33,12 @@
         </activity>
 
         <activity android:name=".RecipesActivity"
-            android:label="PreActivity">
+            android:label="@string/recetas">
 
         </activity>
 
         <activity android:name=".IngredientsActivity"
-            android:label="@string/PreActivity">
+            android:label="@string/Ingredients">
 
         </activity>
 

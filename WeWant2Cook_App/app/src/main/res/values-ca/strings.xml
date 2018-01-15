@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Ingredients">Ingredients</string>
+    <string name="ShoppingList">Llista de la compra</string>
+    <string name="cancelar">Cancel·lar</string>
+    <string name="cannotread">No es pot llegir del fitxer</string>
+    <string name="cannotwrite">No es pot escriure al fitxer</string>
+    <string name="cantidad">Quantitat</string>
+    <string name="add_shoppinglist">Afegir artícles a la llista de la compra</string>
+    <string name="cerrar">Tancar</string>
+    <string name="clear_all">Eliminar tots els ingredients</string>
+    <string name="clear_checked">Eliminar ingredients seleccionats</string>
+    <string name="compartir">Compartir</string>
+    <string name="completar_campos">Completeu tots el camps</string>
+    <string name="confirm">Confirmació</string>
+    <string name="confirm_add">Introdueix el nom de la nova recepta</string>
+    <string name="confirm_clear_all">Segur que vols eliminar tots els ingredients?</string>
+    <string name="copia_codigo">Copia el següent codi:</string>
+    <string name="crear_nueva_lista">Crear una nova llista</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eliminar_datos">S\'eliminaran totes les dades</string>
+    <string name="guardar">Guardar</string>
+    <string name="introduce_el_codigo">Introdueix el codi:</string>
+    <string name="lista_de_la_compra">Llista de la compra</string>
+    <string name="no">No</string>
+    <string name="que_quieres_hacer">Qué vols fer?</string>
+    <string name="recetas">Receptes</string>
+    <string name="search_recipe">Escriu el nom de la recepta</string>
+    <string name="seguro_cerrar">Segur que vols tancar la sessió?</string>
+    <string name="seguro_eliminar">Segur que vols eliminar aquest article?</string>
+    <string name="si">Si</string>
+    <string name="unidades">Unitats</string>
+    <string name="unirse">Unir-se</string>
+    <string name="unirse_a_una_lista">Unir-se a una llista</string>
+    <string name="wewant2cook">WeWant2Cook</string>
+    <string name="nombre_item">Nom de l\'article</string>
+    <string name="nombre_ingrediente">Nom de l\'ingredient</string>
+</resources>

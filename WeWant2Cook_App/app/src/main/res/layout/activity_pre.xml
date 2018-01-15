@@ -11,7 +11,7 @@
         android:id="@+id/quehacer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Qué quieres hacer?"
+        android:text="@string/que_quieres_hacer"
         android:textSize="20sp" />
     <!-- android:layout_marginLeft="25dp"-->
     <Button
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Crear nueva lista"
+        android:text="@string/crear_nueva_lista"
         android:layout_below="@+id/quehacer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -32,13 +32,20 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/btn_nueva_lista"
         android:layout_marginTop="10dp"
-        android:text="Unirse a una lista" />
+        android:text="@string/unirse_a_una_lista" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Layout_unirse"
         android:layout_below="@+id/btn_unirse_lista">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70sp"
+            android:src="@drawable/join"
+            android:layout_below="@+id/codigo_unirse"
+            android:layout_alignBottom="@+id/btn_unirse"/>
 
         <TextView
             android:id="@+id/introducir_codigo"
@@ -47,7 +54,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
-            android:text="Introduce el código:"
+            android:text="@string/introduce_el_codigo"
             android:textSize="20sp" />
 
         <EditText
@@ -66,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Unirse"
+            android:text="@string/unirse"
             android:layout_below="@+id/codigo_unirse"
             android:layout_alignRight="@+id/codigo_unirse"
             android:layout_alignEnd="@+id/codigo_unirse" />
@@ -74,3 +81,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+

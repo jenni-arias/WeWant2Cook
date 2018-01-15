@@ -55,9 +55,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         edit_unidades.setText(item.getUnidades());
 
 
-
-        //////////////////////
-
         edit_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int pos, KeyEvent event) {
@@ -74,7 +71,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 String uni = (edit_unidades.getText().toString());
                 item.setUnidades(uni);
 
-
                 String new_value = String.valueOf(item.getCantidad()).concat(" ").concat(uni);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child(String.valueOf(item.getCode())).
@@ -84,10 +80,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 return true;
             }
         });
-
-        //////////////////
-
-
 
 
         edit_cantidad.addTextChangedListener(new TextWatcher() {
@@ -119,8 +111,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         });
 
 
-
-
         edit_unidades.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -130,7 +120,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                //notifyDataSetChanged();
             }
 
             @Override
@@ -146,7 +135,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                                 child(item.getNombre()).setValue(new_value);
                     }
                 }
-
             }
         });
 
@@ -164,10 +152,9 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 Log.e("jenn","longclick clicado");
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingListActivity.getAppContext());
 
-                builder.setMessage("¿Seguro que quieres eliminar este ingrediente?");
+                builder.setMessage(R.string.seguro_eliminar);
                 builder.setCancelable(true);
-
-                builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.eliminar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         item.setBorrar(true);
@@ -180,7 +167,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
 
                     }
                 });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

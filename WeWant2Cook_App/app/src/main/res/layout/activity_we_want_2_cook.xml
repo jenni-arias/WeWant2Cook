@@ -14,7 +14,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="23dp"
         android:layout_marginStart="23dp"
-        android:text="Recetas"
+        android:text="@string/recetas"
         android:layout_above="@+id/btn_list"
         android:layout_toRightOf="@+id/imageView7"
         android:layout_toEndOf="@+id/imageView7"
@@ -30,29 +30,31 @@
         android:layout_alignRight="@+id/btn_recipes"
         android:layout_alignStart="@+id/btn_recipes"
         android:layout_centerVertical="true"
-        android:text="Lista de la compra" />
+        android:text="@string/lista_de_la_compra" />
 
 
     <ImageView
         android:id="@+id/imageView5"
-        android:src="@drawable/download"
+        android:src="@drawable/shoppingbasket"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
-        android:layout_alignBottom="@+id/btn_list"
+
+        android:layout_below="@+id/btn_recipes"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/btn_list" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:src="@drawable/chef"
+        android:src="@drawable/recipe"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/imageView5"
         android:layout_alignStart="@+id/imageView5"
         android:layout_alignTop="@+id/btn_recipes"
-        />
+        android:layout_alignBottom="@+id/btn_recipes" />
 
 </android.widget.RelativeLayout>
 

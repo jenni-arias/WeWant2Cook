@@ -3,13 +3,11 @@ package arias.jenifer.wewant2cook;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.IntegerRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,12 +20,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import com.google.firebase.database.*;
-import com.google.firebase.*;
-
-import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -61,7 +53,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         DatabaseReference databaseReference;
 
         shopping_list = (ListView) findViewById(R.id.shopping_list);
-        btn_add = (Button) findViewById(R.id.btn_add);
+        btn_add = (Button) findViewById(R.id.btn_addR);
         item_nombre =  (TextView) findViewById(R.id.item_nombre);
 
         ShoppingList = new ArrayList<>();
@@ -144,11 +136,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                 final EditText input1 = new EditText(context);
                 final EditText input2 = new EditText(context);
                 final TextView text1 = new TextView(context);
-                text1.setText("Nombre del ingrediente");
+                text1.setText(R.string.nombre_item);
                 final TextView text2 = new TextView(context);
-                text2.setText("Cantidad");
+                text2.setText(R.string.cantidad);
                 final TextView text3 = new TextView(context);
-                text3.setText("Unidades");
+                text3.setText(R.string.unidades);
                 lila1.addView(text1);
                 lila1.addView(input);
                 lila1.addView(text2);
@@ -156,12 +148,12 @@ public class ShoppingListActivity extends AppCompatActivity {
                 lila1.addView(text3);
                 lila1.addView(input2);
                 alert.setView(lila1);
-                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();
                     }
                 });
-                alert.setPositiveButton("Guardar",
+                alert.setPositiveButton(R.string.guardar,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 int in2;
@@ -176,20 +168,12 @@ public class ShoppingListActivity extends AppCompatActivity {
                                     addItem(in1, in2, in3);
                                     dialog.cancel();
                                 }else{
-                                    String value = "Complete todos los campos";
-                                    Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();                                }
+                                    Toast.makeText(getApplicationContext(), R.string.completar_campos, Toast.LENGTH_SHORT).show();                                }
                             }
                         });
                 alert.create().show();
             }
 
-
-
-
-
-
-            //addItem();
-            //}
         });
 
     }
@@ -256,10 +240,10 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeCode filenotfound");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeCode IOEXception");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -280,7 +264,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e("Marta", "readCode IOEXception");
-            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -291,10 +275,4 @@ public class ShoppingListActivity extends AppCompatActivity {
         writeCode();
 
     }
-
-
-
-
-
-
 }

@@ -3,19 +3,14 @@ package arias.jenifer.wewant2cook;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.ConditionVariable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,10 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 // TODO poder editar el títol del ActionBar amb el nom de la recipe seleccionada
 
@@ -68,16 +60,16 @@ public class IngredientsActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeItemList filenotfound");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Marta", "writeItemList IOEXception");
-            Toast.makeText(this, "No se puede escribir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private void readIngredientsList(){
-
+      //  IngredientsList = new ArrayList<>();
         try {
             FileInputStream fis = openFileInput(FILENAME_INGR);
             byte[] buffer_i = new byte[MAX_BYTES];
@@ -108,7 +100,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e("Marta", "readItemList IOEXception");
-            Toast.makeText(this, "No se puede leer", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -126,8 +118,7 @@ public class IngredientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
 
-
-        btn_add = (Button) findViewById(R.id.btn_add);
+        btn_add = (Button) findViewById(R.id.btn_addR);
         list = (ListView) findViewById(R.id.ingredients_list);
 
         IngredientsList = new ArrayList<>();
@@ -159,11 +150,11 @@ public class IngredientsActivity extends AppCompatActivity {
                 final EditText input1 = new EditText(context);
                 final EditText input2 = new EditText(context);
                 final TextView text1 = new TextView(context);
-                text1.setText("Nombre del ingrediente");
+                text1.setText(R.string.nombre_ingrediente);
                 final TextView text2 = new TextView(context);
-                text2.setText("Cantidad");
+                text2.setText(R.string.cantidad);
                 final TextView text3 = new TextView(context);
-                text3.setText("Unidades");
+                text3.setText(R.string.unidades);
                 lila1.addView(text1);
                 lila1.addView(input);
                 lila1.addView(text2);
@@ -171,12 +162,12 @@ public class IngredientsActivity extends AppCompatActivity {
                 lila1.addView(text3);
                 lila1.addView(input2);
                 alert.setView(lila1);
-                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();
                     }
                 });
-                alert.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         float in2;
@@ -193,18 +184,11 @@ public class IngredientsActivity extends AppCompatActivity {
                             Log.i("Marta Dins el if", "addItem if");
                             dialog.cancel();
                         }else{
-                            String value = "Complete todos los campos";
-                            Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();                                }
+                            Toast.makeText(getApplicationContext(), R.string.completar_campos, Toast.LENGTH_SHORT).show();                                }
                     }
                 });
                 alert.create().show();
             }
-
-
-
-
-
-
             //addItem();
             //}
         });
@@ -272,7 +256,4 @@ public class IngredientsActivity extends AppCompatActivity {
     public static Context getAppContext(){
         return context;
     }
-
-
-
 }

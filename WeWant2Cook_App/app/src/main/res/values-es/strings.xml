@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WeWant2Cook</string>
-    <string name="Recipes">Recetas</string>
     <string name="confirm">Confirmación</string>
-    <string name="confirm_message">Seguro que quiere eliminar \'%1$s\'?</string>
-    <string name="remove">Eliminar</string>
     <string name="Ingredients">Ingredientes</string>
+    <string name="ShoppingList">Lista de la compra</string>
+    <string name="add_shoppinglist">Añadir artículos a la lista de la compra</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="cannotread">No se puede leer el fichero</string>
+    <string name="cannotwrite">No se puede escribir el fichero</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="clear_all">Eliminar todos los ingredientes</string>
+    <string name="clear_checked">Eliminar ingredientes seleccionados</string>
+    <string name="compartir">Compartir</string>
+    <string name="confirm_add">Introduce el nombre de la nueva receta</string>
+    <string name="completar_campos">Complete todos los campos</string>
+    <string name="confirm_clear_all">Seguro que quiere eliminar todos los ingredientes?</string>
+    <string name="copia_codigo">Copia el código siguiente:</string>
+    <string name="crear_nueva_lista">Crear nueva lista</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eliminar_datos">Se eliminarán todo los datos</string>
+    <string name="guardar">Guardar</string>
+    <string name="introduce_el_codigo">Introduce el código:</string>
+    <string name="lista_de_la_compra">Lista de la compra</string>
+    <string name="no">No</string>
+    <string name="que_quieres_hacer">Qué quieres hacer?</string>
+    <string name="recetas">Recetas</string>
+    <string name="search_recipe">Escribe el nombre de la receta</string>
+    <string name="seguro_cerrar">¿Seguro que desea cerrar la sesión?</string>
+    <string name="seguro_eliminar">¿Seguro que desea eliminar este artículo?</string>
+    <string name="si">Si</string>
+    <string name="unidades">Unidades</string>
+    <string name="unirse">Unirse</string>
+    <string name="unirse_a_una_lista">Unirse a una lista</string>
+    <string name="wewant2cook">WeWant2Cook</string>
+    <string name="nombre_item">Nombre del artículo</string>
+    <string name="nombre_ingrediente">Nombre del ingrediente</string>
 </resources>

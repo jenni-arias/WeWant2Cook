@@ -64,8 +64,6 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
             }
         } );
 
-
-
         units.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -80,26 +78,20 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
             @Override
             public boolean onLongClick(View v) {
                 Log.e("Marta","funciona clicat el textview");
-
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(IngredientsActivity.getAppContext());
-
-
-                builder1.setMessage(String.format("Are you sure you want to remove '%s'?", ingredient_name.getText().toString()));
+                // TODO: Traducir el builder...
+                builder1.setMessage(String.format("Are you sure you want to remove '%s'?", ingredient_name.getText().toString())); //"Are you sure you want to remove '%s'?"
                 builder1.setCancelable(true);
-
                 builder1.setPositiveButton(
-                        "Yes",
+                        R.string.si,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                                 remove(item);
-
-
                             }
                         });
 
                 builder1.setNegativeButton(
-                        "No",
+                        R.string.no,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -107,7 +99,6 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
                         });
 
                 AlertDialog alert11 = builder1.create();
-                //llançem el alert
                 alert11.show();
                 return true;
             }

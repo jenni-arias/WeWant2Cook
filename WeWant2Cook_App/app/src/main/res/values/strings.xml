@@ -1,18 +1,41 @@
 <resources>
-    <string name="PreActivity">WeWant2Cook</string>
-    <string name="app_name">ShoppingList</string>
-    <string name="Recipes">Recipes</string>
-    <string name="Ingredients">Ingredients</string>
-    <string name="confirm">Confirmation</string>
-    <string name="confirm_message">Are you sure you want to remove \'%1$s\'?</string>
+    <string name="PreActivity" translatable="false">WeWant2Cook</string>
+    <string name="ShoppingList">Lista de la compra</string>
+    <string name="app_name" translatable="false">ShoppingList</string>
+    <string name="Ingredients">Ingredientes</string>
+    <string name="confirm">Confirmar</string>
 
-    <string name="remove">Remove</string>
-    <string name="Recipe_name">Recipe Name</string>
-    <string name="confirm_add">Enter de name of the new recipe:</string>
+    <string name="confirm_add">Introduce el nombre de la nueva receta</string>
 
-    <string name="clear_checked">Eliminar items seleccionats</string>
-    <string name="clear_all">Eliminar tots els items</string>
-    <string name="add_shoppinglist">Add items to shopping list</string>
-    <string name="confirm_clear_all">Are you sure you want to clear all items?</string>
+    <string name="clear_checked">Eliminar items seleccionados</string>
+    <string name="clear_all">Eliminar todos los ingredients</string>
+    <string name="add_shoppinglist">Añadir items a la Shopping List</string>
+    <string name="confirm_clear_all">Seguro que quiere eliminar todos los ingredientes?</string>
     <string name="search_recipe">Write the name of the recipe</string>
+    <string name="que_quieres_hacer">Qué quieres hacer?</string>
+    <string name="crear_nueva_lista">Crear nueva lista</string>
+    <string name="unirse_a_una_lista">Unirse a una lista</string>
+    <string name="introduce_el_codigo">Introduce el código:</string>
+    <string name="unirse">Unirse</string>
+    <string name="recetas">Recetas</string>
+    <string name="lista_de_la_compra">Lista de la compra</string>
+    <string name="compartir">Compartir</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="cannotwrite">No se puede escribir el fichero</string>
+    <string name="cannotread">No se puede leer el fichero</string>
+    <string name="nombre_ingrediente">Nombre del ingrediente</string>
+    <string name ="nombre_item">Nombre del artículo</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="unidades">Unidades</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
+    <string name="completar_campos">Complete todos los campos</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="seguro_eliminar">¿Seguro que quiere eliminar este artículo?</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="copia_codigo">Copia el código siguiente:</string>
+    <string name="seguro_cerrar">¿Seguro que desea cerrar la sesión?</string>
+    <string name="eliminar_datos">Se eliminarán todo los datos</string>
+    <string name="wewant2cook">WeWant2Cook</string>
 </resources>
