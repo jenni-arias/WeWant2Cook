@@ -8,12 +8,12 @@
     <string name="cannotwrite">Unable to write the file</string>
     <string name="cantidad">Quantity</string>
     <string name="cerrar">Close</string>
-    <string name="clear_all">Delete all ingredients</string>
-    <string name="clear_checked">Delete selected ingredients</string>
+    <string name="clear_all">Delete all recipes</string>
+    <string name="clear_checked">Delete selected recipes</string>
     <string name="compartir">Share</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_add">Name the new recipe</string>
-    <string name="confirm_clear_all">Are you shure you want to delete all ingredients?</string>
+    <string name="confirm_clear_all">Are you sure you want to delete all ?</string>
     <string name="copia_codigo">Copy next code:</string>
     <string name="crear_nueva_lista">Create new list</string>
     <string name="eliminar">Delete</string>
@@ -22,8 +22,8 @@
     <string name="que_quieres_hacer">What do you want to do?</string>
     <string name="recetas">Recipes</string>
     <string name="search_recipe">Write the name of recipe</string>
-    <string name="seguro_cerrar">Are you shure you want to close de sesion?</string>
-    <string name="seguro_eliminar">Are you shure you want to delete the item?</string>
+    <string name="seguro_cerrar">Are you sure you want to close de sesion?</string>
+    <string name="seguro_eliminar">Are you sure you want to delete the item?</string>
     <string name="si">Yes</string>
     <string name="unidades">Units</string>
     <string name="unirse">Join</string>
@@ -35,4 +35,5 @@
     <string name="introduce_el_codigo">Write the code:</string>
     <string name="nombre_item">Name of item</string>
     <string name="nombre_ingrediente">Name of ingredient</string>
+    <string name="confirm_message">Are you sure you want to remove \'%1$s\'?</string>
 </resources>

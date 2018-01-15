@@ -9,12 +9,12 @@
     <string name="cannotwrite">No se puede escribir el fichero</string>
     <string name="cantidad">Cantidad</string>
     <string name="cerrar">Cerrar</string>
-    <string name="clear_all">Eliminar todos los ingredientes</string>
-    <string name="clear_checked">Eliminar ingredientes seleccionados</string>
+    <string name="clear_all">Eliminar todas las recetas</string>
+    <string name="clear_checked">Eliminar recetas seleccionadas</string>
     <string name="compartir">Compartir</string>
     <string name="confirm_add">Introduce el nombre de la nueva receta</string>
     <string name="completar_campos">Complete todos los campos</string>
-    <string name="confirm_clear_all">Seguro que quiere eliminar todos los ingredientes?</string>
+    <string name="confirm_clear_all">Seguro que quiere eliminar todas las recetas?</string>
     <string name="copia_codigo">Copia el código siguiente:</string>
     <string name="crear_nueva_lista">Crear nueva lista</string>
     <string name="eliminar">Eliminar</string>
@@ -35,4 +35,5 @@
     <string name="wewant2cook">WeWant2Cook</string>
     <string name="nombre_item">Nombre del artículo</string>
     <string name="nombre_ingrediente">Nombre del ingrediente</string>
+    <string name="confirm_message">¿Seguro que quiere eliminar \'%1$s\'?</string>
 </resources>

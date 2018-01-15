@@ -161,6 +161,7 @@ public class RecipesActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String in = input.getText().toString();
+                RecipesList.add(new Recipes_item(in, false));
 
                 saveRecipe(input.getText().toString());
             }
@@ -189,7 +190,6 @@ public class RecipesActivity extends AppCompatActivity {
 
                     //readRecipesList();
                     String Recipe = data.getStringExtra("name");
-                    RecipesList.add(new Recipes_item(Recipe, false));
 
                     Log.i("Marta","ReadRecipesList()");
 

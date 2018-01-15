@@ -8,13 +8,13 @@
     <string name="cantidad">Quantitat</string>
     <string name="add_shoppinglist">Afegir artícles a la llista de la compra</string>
     <string name="cerrar">Tancar</string>
-    <string name="clear_all">Eliminar tots els ingredients</string>
-    <string name="clear_checked">Eliminar ingredients seleccionats</string>
+    <string name="clear_all">Eliminar totes les receptes</string>
+    <string name="clear_checked">Eliminar receptes seleccionades</string>
     <string name="compartir">Compartir</string>
     <string name="completar_campos">Completeu tots el camps</string>
     <string name="confirm">Confirmació</string>
     <string name="confirm_add">Introdueix el nom de la nova recepta</string>
-    <string name="confirm_clear_all">Segur que vols eliminar tots els ingredients?</string>
+    <string name="confirm_clear_all">Segur que vols eliminar totes les receptes?</string>
     <string name="copia_codigo">Copia el següent codi:</string>
     <string name="crear_nueva_lista">Crear una nova llista</string>
     <string name="eliminar">Eliminar</string>
@@ -35,4 +35,5 @@
     <string name="wewant2cook">WeWant2Cook</string>
     <string name="nombre_item">Nom de l\'article</string>
     <string name="nombre_ingrediente">Nom de l\'ingredient</string>
+    <string name="confirm_message">Segur que vols eliminar \'%1$s\'?</string>
 </resources>
