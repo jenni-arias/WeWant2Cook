@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,19 +36,35 @@ public class IngredientsActivity extends AppCompatActivity {
     public static Context context;
     private IngredientsAdapter ingredient_adapter;
     private ArrayList<Ingredients_item> lista;
-    private static final String  FILENAME_INGR = "ING.txt";
-    private static final int MAX_BYTES = 80000;
+
+   // private static final String  FILENAME_INGR = "ING.txt";
+    //private static final String FILENAME_INGR = "ings.txt";
+    private static final String FILENAME_INGR = "fich_ingr.txt";
+
+
+    private static final int MAX_BYTES = 800000;
+   // String lines_before;
+    byte[] buffer_i = new byte[MAX_BYTES];
+
+    String content = new String(buffer_i);
+
 
     private void writeIngredientsList(){
+        Log.i("Marta dins writeI", FILENAME_INGR.length()+"");
 
         try {
             FileOutputStream fos = openFileOutput(FILENAME_INGR, Context.MODE_PRIVATE);
+            int num = 0;
+            int l =0;
+
+
             for (int i=0; i < IngredientsList.size(); i++){
                 Ingredients_item it = IngredientsList.get(i);
-                String line = String.format("%s;%s;%s;%5f\n", recipe_name, it.getText(), it.getUnits(),it.getNumber());
+                String line = String.format("%s;%s;%s;%f\n", recipe_name, it.getText(), it.getUnits(),it.getNumber());
                 fos.write(line.getBytes());
                 Log.i("Marta Què escriu", line);
             }
+
             fos.close();
 
         } catch (FileNotFoundException e) {
@@ -60,7 +77,7 @@ public class IngredientsActivity extends AppCompatActivity {
     }
 
     private void readIngredientsList(){
-        //  IngredientsList = new ArrayList<>();
+
         Log.i("Marta", "dins readIngreients I");
         try {
             FileInputStream fis = openFileInput(FILENAME_INGR);
@@ -68,11 +85,18 @@ public class IngredientsActivity extends AppCompatActivity {
             int nread = fis.read(buffer_i);
 
             if (nread>0) {
-                String content = new String(buffer_i, 0, nread);
+                content = new String(buffer_i, 0, nread);
                 String[] lines = content.split("\n");
+              //  lines_before = content.split("\n");
+
+                Log.i("Marta lines ", lines.length+"");
+                Log.i("Marta lines", lines[0]);
+
                 for (String line : lines) {
                     String[] parts = line.split(";");
                     Log.i("Marta Què llegeix I: ", line);
+                    Log.i("Marta Part[0]", parts[0]);
+                    Log.i("Marta Recipe", recipe_name);
 
                     if ( parts[0].equals(recipe_name)){
                         Log.i("Marta Recipe NAme", recipe_name + "==?" + parts[0]);
@@ -140,12 +164,15 @@ public class IngredientsActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Marta", "btn_add");
+
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 LinearLayout lila1= new LinearLayout(context);
                 lila1.setOrientation(LinearLayout.VERTICAL);
                 final EditText input = new EditText(context);
                 final EditText input1 = new EditText(context);
+                input1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+
                 final EditText input2 = new EditText(context);
                 final TextView text1 = new TextView(context);
                 text1.setText(R.string.nombre_ingrediente);
@@ -172,6 +199,8 @@ public class IngredientsActivity extends AppCompatActivity {
                         String in1 =input.getText().toString();
                         String in3 = input2.getText().toString();
 
+                        //if(Float.parseFloat(input1.getText().toString()) )
+
                         if(input1.getText().toString().isEmpty()){
                             in2 = 0;
                         }
@@ -179,7 +208,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
                         if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
                             addItem(in1, in2, in3);
-                            Log.i("Marta Dins el if", "addItem if");
+
                             dialog.cancel();
                         }else{
                             Toast.makeText(getApplicationContext(), R.string.completar_campos, Toast.LENGTH_SHORT).show();                                }
@@ -187,14 +216,13 @@ public class IngredientsActivity extends AppCompatActivity {
                 });
                 alert.create().show();
             }
-            //addItem();
-            //}
+
         });
     }
 
     public void addItem(String in1, Float in2, String in3) {
         IngredientsList.add(new Ingredients_item(in1,in3,in2));
-        Log.i("Marta AddItem", IngredientsList.get(0).getText());
+
     }
 
     @Override

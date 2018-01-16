@@ -62,7 +62,6 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
             @Override
             public void onClick(View view) {
                 item.toggleleChecked();
-                Log.i("Marta checked Adapter", item.getText()+item.isChecked()+"");
             }
         });
         return result;
@@ -72,7 +71,6 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         // Anem a IngredientsActivity
         Intent intent = new Intent(context, IngredientsActivity.class);
         intent.putExtra("name", n);
-        Log.i("Marta", "Dins el saveREcipe");
 
         ((Activity) mContext).startActivityForResult(intent,0);
 

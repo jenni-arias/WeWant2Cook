@@ -59,6 +59,7 @@ public class RecipesActivity extends AppCompatActivity {
             for (int i=0; i < RecipesList.size(); i++){
                 Recipes_item it = RecipesList.get(i);
                 String line = String.format("%s;%b\n", it.getText(), it.isChecked());
+               // Log.i("Marta què escriu R", line);
                 fos.write(line.getBytes());
             }
             fos.close();
@@ -85,7 +86,7 @@ public class RecipesActivity extends AppCompatActivity {
                 for (String line : lines) {
                     String[] parts = line.split(";");
                     RecipesList.add(new Recipes_item(parts[0], parts[1].equals("true")));
-                    Log.i("Marta Què llegeix R", line);
+                   // Log.i("Marta Què llegeix R", line);
                 }
                 fis.close();
             }
@@ -102,7 +103,7 @@ public class RecipesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Marta", "onStop() Recipes");
+       // Log.i("Marta", "onStop() Recipes");
         writeCode();
         writeRecipesList();
     }
@@ -133,7 +134,7 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 add_r();
-                Log.i("Marta", "click");
+
             }
         });
     }
@@ -184,11 +185,7 @@ public class RecipesActivity extends AppCompatActivity {
             case 0:
                 if (resultCode == AppCompatActivity.RESULT_OK) {
 
-                    //readRecipesList();
                     String Recipe = data.getStringExtra("name");
-                    RecipesList.add(new Recipes_item(Recipe, false)); //JENNI
-
-                    Log.i("Marta","ReadRecipesList()");
 
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
@@ -287,7 +284,6 @@ public class RecipesActivity extends AppCompatActivity {
 
         dref = FirebaseDatabase.getInstance().getReference();
         dref.child(String.valueOf(code)).child(ingre).setValue(num.concat(" ").concat(unidades));
-        Log.i("Recipes", ing.get(0));
     }
 
 
@@ -299,7 +295,6 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 RecipesList.clear();
-                //deleteFile(FILENAME_CODE);
                 recipes_adapter.notifyDataSetChanged();
             }
         });
@@ -310,12 +305,9 @@ public class RecipesActivity extends AppCompatActivity {
     private void clearChecked() {
         int i = 0;
         while (i < RecipesList.size()) {
-            Log.i("Marta", RecipesList.size()+"" );
             if (RecipesList.get(i).isChecked()) {
-                Log.i("Marta is checked", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
                 RecipesList.remove(i);
             } else {
-                Log.i("Marta is not checked", RecipesList.get(i).isChecked()+","+RecipesList.get(i).getText() );
                 i++;
             }
         }
@@ -351,6 +343,6 @@ public class RecipesActivity extends AppCompatActivity {
         super.onDestroy();
         writeCode();
         writeRecipesList();
-        Log.i("Marta", "onDestroy Recipes");
+       // Log.i("Marta", "onDestroy Recipes");
     }
 }

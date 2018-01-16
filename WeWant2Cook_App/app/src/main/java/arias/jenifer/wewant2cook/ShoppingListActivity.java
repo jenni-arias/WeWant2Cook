@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -134,6 +135,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 lila1.setOrientation(LinearLayout.VERTICAL);
                 final EditText input = new EditText(context);
                 final EditText input1 = new EditText(context);
+                input1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 final EditText input2 = new EditText(context);
                 final TextView text1 = new TextView(context);
                 text1.setText(R.string.nombre_item);

@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
         }
 
         final EditText num = (EditText)result.findViewById(R.id.edit_number);
+       // num.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         final EditText units = (EditText) result.findViewById(R.id.edit_units);
         final TextView ingredient_name = (TextView)result.findViewById(R.id.Ingr_name);
 
@@ -58,8 +61,14 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
             @Override
             public boolean onEditorAction(TextView textView, int pos, KeyEvent keyEvent) {
                 Log.e("Marta","funciona clicat num");
-                float n = parseFloat(num.getText().toString());
-                item.setNumber(n);
+
+                try {
+                    float n = parseFloat(num.getText().toString());
+                    item.setNumber(n);
+                }catch (NumberFormatException nfe){
+                    Toast.makeText(getContext(), R.string.completar_bien_campos, Toast.LENGTH_SHORT).show();
+
+                }
                 return true;
             }
         } );

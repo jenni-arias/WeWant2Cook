@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,6 +48,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             result = inflater.inflate(R.layout.activity_shopping_item, null);
         }
         final EditText edit_cantidad = (EditText) result.findViewById(R.id.edit_cantidad);
+        //edit_cantidad.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         final EditText edit_unidades = (EditText) result.findViewById(R.id.edit_unidades);
         final TextView item_nombre = (TextView) result.findViewById(R.id.item_nombre);
         final ShoppingItem item = getItem(position);
@@ -58,8 +61,15 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         edit_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int pos, KeyEvent event) {
-                float cant = parseFloat(edit_cantidad.getText().toString());
-                item.setCantidad(cant);
+
+                try {
+                    float cant = parseFloat(edit_cantidad.getText().toString());
+                    item.setCantidad(cant);
+                }catch (NumberFormatException nfe){
+                    Toast.makeText(getContext(), R.string.completar_bien_campos, Toast.LENGTH_SHORT).show();
+
+                }
+
                 return true;
             }
         });
