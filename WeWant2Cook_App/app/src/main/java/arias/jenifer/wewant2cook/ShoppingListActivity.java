@@ -32,7 +32,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private ListView shopping_list;
     private Button btn_add;
-    private EditText edit_item;
     private TextView item_nombre;
     private ArrayList<ShoppingItem> ShoppingList;
     private ArrayList<ShoppingItem> ShoppingListFromRecipies;
@@ -60,10 +59,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         ShoppingList = new ArrayList<>();
         ShoppingListFromRecipies = new ArrayList<>();
 
-
         Intent intent = getIntent();
         code = intent.getIntExtra("code", -1);
-        Log.i("Hugo", String.valueOf(code));
 
         shoppinglist_adapter = new ShoppingListAdapter(
                 this,
@@ -85,11 +82,8 @@ public class ShoppingListActivity extends AppCompatActivity {
                 databaseReference.child(String.valueOf(code)).
                         child(ings.get(i)).setValue(new_value);
                 shoppinglist_adapter.notifyDataSetChanged();
-                Log.i("ShoppingList", ings.get(0)+nums.get(0)+units.get(0));
             }
         }
-
-
 
         dref = FirebaseDatabase.getInstance().getReference().child(String.valueOf(code));
         mListener = dref.addChildEventListener(new ChildEventListener() {
@@ -175,9 +169,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                         });
                 alert.create().show();
             }
-
         });
-
     }
 
     private int getIndex(String s) {
@@ -193,6 +185,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private String getUds(String s) {
         String uds = "";
         String[] parts = s.split(" ");
+
         if(parts.length>=2) {
             uds = parts[1];
         }
@@ -212,7 +205,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     private void addItem(String nombre, int cant, String unids) {
-
         dref.child(nombre).setValue(String.valueOf(cant).concat(" ").concat(unids));
         shoppinglist_adapter.notifyDataSetChanged();
     }
@@ -230,21 +222,15 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     private void writeCode(){
-
         try {
             FileOutputStream fos = openFileOutput(FILENAME_CODE, Context.MODE_PRIVATE);
-
-                String line = String.valueOf(code);
-                fos.write(line.getBytes());
-                Log.i("Marta", line);
-
+            String line = String.valueOf(code);
+            fos.write(line.getBytes());
             fos.close();
 
         } catch (FileNotFoundException e) {
-            Log.e("Marta", "writeCode filenotfound");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Log.e("Marta", "writeCode IOEXception");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
@@ -263,18 +249,17 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.i("Marta", "readCode:  filenotfoundException");
+            Toast.makeText(this, R.string.cannotread , Toast.LENGTH_SHORT).show();
 
         } catch (IOException e) {
             Log.e("Marta", "readCode IOEXception");
             Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
         }
-
     }
+
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Hugo", "onStop()");
         writeCode();
-
     }
 }

@@ -4,7 +4,6 @@ package arias.jenifer.wewant2cook;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingItem {
 
@@ -64,6 +63,7 @@ public class ShoppingItem {
     public void setList(ListView list){
         this.list = list;
     }
+
     public  ArrayList<ShoppingItem>  getArray(){
         return ShoppingList;
     }
@@ -71,6 +71,7 @@ public class ShoppingItem {
     public void setArray( ArrayList<ShoppingItem> ShoppingList){
         this.ShoppingList = ShoppingList;
     }
+
     public int getCode() {
         return code;
     }
@@ -78,6 +79,7 @@ public class ShoppingItem {
     public void setCode(int code) {
         this.code = code;
     }
+
     public boolean getBorrar() {
         return borrar;
     }

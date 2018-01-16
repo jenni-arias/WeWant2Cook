@@ -3,7 +3,6 @@ package arias.jenifer.wewant2cook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,7 +61,7 @@ public class PreActivity extends AppCompatActivity {
                         startActivityForResult(intent,0);
                     } @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.i("Hugo", databaseError.toString());
+
                     }
                 });
             }
@@ -72,7 +71,6 @@ public class PreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Layout_unirse.setVisibility(View.VISIBLE);
-
                 btn_unirse.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,7 +80,6 @@ public class PreActivity extends AppCompatActivity {
                         startActivityForResult(intent, 0);
                     }
                 });
-
             }
         });
     }

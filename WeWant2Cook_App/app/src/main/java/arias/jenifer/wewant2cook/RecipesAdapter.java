@@ -1,14 +1,11 @@
 package arias.jenifer.wewant2cook;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +24,8 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
     static Context context = RecipesActivity.getAppContext();
     Context mContext;
 
-
     public RecipesAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
         super(context, resource, objects);
-
     }
 
     @NonNull
@@ -39,8 +34,8 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
 
         View result = convertView;
         mContext = parent.getContext();
-        if (result == null) {
 
+        if (result == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             result = inflater.inflate(R.layout.activity_recipes_item, null);
         }
@@ -68,17 +63,12 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
     }
 
     public void saveRecipe(String n, int pos, ArrayList<String> item) {
-        // Anem a IngredientsActivity
         Intent intent = new Intent(context, IngredientsActivity.class);
         intent.putExtra("name", n);
         intent.putExtra("pos", pos);
-        //intent.putExtra("item", item.getLista_ingr());
         intent.putExtra("item", item);
 
-        //((Activity) mContext).startActivity(intent);
-
         ((Activity) mContext).startActivityForResult(intent,0);
-
     }
 }
 

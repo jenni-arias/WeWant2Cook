@@ -14,7 +14,7 @@
     <string name="compartir">Compartir</string>
     <string name="confirm_add">Introduce el nombre de la nueva receta</string>
     <string name="completar_campos">Complete todos los campos</string>
-    <string name="confirm_clear_all">Seguro que quiere eliminar todas las recetas?</string>
+    <string name="confirm_clear_all">Seguro que desea eliminar todas las recetas?</string>
     <string name="copia_codigo">Copia el código siguiente:</string>
     <string name="crear_nueva_lista">Crear nueva lista</string>
     <string name="eliminar">Eliminar</string>
@@ -35,7 +35,7 @@
     <string name="wewant2cook">WeWant2Cook</string>
     <string name="nombre_item">Nombre del artículo</string>
     <string name="nombre_ingrediente">Nombre del ingrediente</string>
-    <string name="confirm_message">¿Seguro que quiere eliminar \'%s\'?</string>
+    <string name="confirm_message">¿Seguro que desea eliminar \'%s\'?</string>
     <string name="seguro_eliminar2">Seguro que desea eliminar este ingrediente?</string>
     <string name="completar_bien_campos">Tienes que insertar un numero!</string>
 </resources>

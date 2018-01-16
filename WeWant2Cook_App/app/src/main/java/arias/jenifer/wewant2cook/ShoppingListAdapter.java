@@ -6,12 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -48,7 +46,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             result = inflater.inflate(R.layout.activity_shopping_item, null);
         }
         final EditText edit_cantidad = (EditText) result.findViewById(R.id.edit_cantidad);
-        //edit_cantidad.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         final EditText edit_unidades = (EditText) result.findViewById(R.id.edit_unidades);
         final TextView item_nombre = (TextView) result.findViewById(R.id.item_nombre);
         final ShoppingItem item = getItem(position);
@@ -61,15 +58,13 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         edit_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int pos, KeyEvent event) {
-
                 try {
                     float cant = parseFloat(edit_cantidad.getText().toString());
                     item.setCantidad(cant);
-                }catch (NumberFormatException nfe){
-                    Toast.makeText(getContext(), R.string.completar_bien_campos, Toast.LENGTH_SHORT).show();
-
                 }
-
+                catch (NumberFormatException nfe){
+                    Toast.makeText(getContext(), R.string.completar_bien_campos, Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
@@ -77,7 +72,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         edit_unidades.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Log.i("Hugo", "Pasa por el editor");
                 String uni = (edit_unidades.getText().toString());
                 item.setUnidades(uni);
 
@@ -108,7 +102,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 if(!item.getBorrar()) {
                     if((item.getEditar())) {
                         String uni = (edit_cantidad.getText().toString());
-                        Log.i("Hugo", item.getNombre());
                         item.setCantidad(Float.parseFloat(uni));
                         item.setEditar(false);
                         String new_value = String.valueOf(uni).concat(" ").concat(item.getUnidades());
@@ -159,7 +152,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
         item_nombre.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.e("jenn","longclick clicado");
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingListActivity.getAppContext());
 
                 builder.setMessage(R.string.seguro_eliminar);
@@ -187,8 +179,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
                 return true;
             }
         });
-
         return result;
     }
-
 }

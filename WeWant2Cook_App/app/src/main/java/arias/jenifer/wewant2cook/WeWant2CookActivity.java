@@ -37,7 +37,7 @@ public class WeWant2CookActivity extends AppCompatActivity {
             writeCode();
         }
         readCode();
-        Log.i("Hugo", "Wewant2cook on create: " + code);
+
         if(code == -1){
             Intent intent_back = new Intent(this, PreActivity.class);
             startActivity(intent_back);
@@ -72,7 +72,6 @@ public class WeWant2CookActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     @Override
@@ -120,21 +119,15 @@ public class WeWant2CookActivity extends AppCompatActivity {
     }
 
     private void writeCode(){
-
         try {
             FileOutputStream fos = openFileOutput(FILENAME_CODE, Context.MODE_PRIVATE);
-
             String line = String.valueOf(code);
             fos.write(line.getBytes());
-            Log.i("Marta", line);
-
             fos.close();
 
         } catch (FileNotFoundException e) {
-            Log.e("Marta", "writeCode filenotfound");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Log.e("Marta", "writeCode IOEXception");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
 
@@ -150,12 +143,10 @@ public class WeWant2CookActivity extends AppCompatActivity {
                 code = Integer.parseInt(content);
                 fis.close();
             }
-
         } catch (FileNotFoundException e) {
-            Log.i("Marta", "readCode:  filenotfoundException");
+            Toast.makeText(this, R.string.cannotread , Toast.LENGTH_SHORT).show();
 
         } catch (IOException e) {
-            Log.e("Marta", "readCode IOEXception");
             Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
         }
 
@@ -163,14 +154,11 @@ public class WeWant2CookActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("Hugo","Wewant2cook on destroy: " +String.valueOf(code));
         writeCode();
     }
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Hugo", "onStop()");
-        Log.i("Hugo","Wewant2cook on stop: " +String.valueOf(code));
         writeCode();
     }
 }
