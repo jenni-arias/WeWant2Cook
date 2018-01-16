@@ -80,7 +80,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredients_item> {
                 Log.e("Marta","funciona clicat el textview");
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(IngredientsActivity.getAppContext());
                 // TODO: Traducir el builder...
-                builder1.setMessage(String.format("Are you sure you want to remove '%s'?", ingredient_name.getText().toString())); //"Are you sure you want to remove '%s'?"
+                builder1.setMessage(R.string.seguro_eliminar2); //ingredient_name.getText().toString())
                 builder1.setCancelable(true);
                 builder1.setPositiveButton(
                         R.string.si,

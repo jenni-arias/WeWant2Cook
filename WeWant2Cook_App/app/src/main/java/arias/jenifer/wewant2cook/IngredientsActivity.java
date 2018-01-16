@@ -24,26 +24,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// TODO poder editar el títol del ActionBar amb el nom de la recipe seleccionada
-
 public class IngredientsActivity extends AppCompatActivity {
 
     private ArrayList<Ingredients_item> IngredientsList;
     private ListView list;
     private Button btn_add;
     private String recipe_name;
+    private TextView titulo_ingrediente;
     private static final String  FILENAME_CODE = "code.txt";
-
     public static Context context;
-
     private IngredientsAdapter ingredient_adapter;
-
     private ArrayList<Ingredients_item> lista;
-
     private static final String  FILENAME_INGR = "ING.txt";
-
-
-
     private static final int MAX_BYTES = 80000;
 
     private void writeIngredientsList(){
@@ -58,8 +50,6 @@ public class IngredientsActivity extends AppCompatActivity {
             }
             fos.close();
 
-
-
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeItemList filenotfound");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
@@ -67,7 +57,6 @@ public class IngredientsActivity extends AppCompatActivity {
             Log.e("Marta", "writeItemList IOEXception");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void readIngredientsList(){
@@ -81,9 +70,7 @@ public class IngredientsActivity extends AppCompatActivity {
             if (nread>0) {
                 String content = new String(buffer_i, 0, nread);
                 String[] lines = content.split("\n");
-
                 for (String line : lines) {
-
                     String[] parts = line.split(";");
                     Log.i("Marta Què llegeix I: ", line);
 
@@ -94,7 +81,6 @@ public class IngredientsActivity extends AppCompatActivity {
 
                         addItem(parts[1],Float.valueOf(parts2[0]),parts[2]);
                     }
-
                 }
                 fis.close();
             }
@@ -134,6 +120,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
         btn_add = (Button) findViewById(R.id.btn_addR);
         list = (ListView) findViewById(R.id.ingredients_list);
+        titulo_ingrediente = (TextView) findViewById(R.id.titulo_ingrediente);
 
         IngredientsList = new ArrayList<>();
 
@@ -145,18 +132,15 @@ public class IngredientsActivity extends AppCompatActivity {
 
         list.setAdapter(ingredient_adapter);
 
-        // IngredientsList.add(new Ingredients_item("Pa","Barres",2));
-
         Intent intent = getIntent();
         recipe_name = intent.getStringExtra("name");
+        titulo_ingrediente.setText(recipe_name);
         readIngredientsList();
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Log.i("Marta", "btn_add");
-
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 LinearLayout lila1= new LinearLayout(context);
                 lila1.setOrientation(LinearLayout.VERTICAL);
@@ -206,19 +190,11 @@ public class IngredientsActivity extends AppCompatActivity {
             //addItem();
             //}
         });
-
     }
 
-
-
-
     public void addItem(String in1, Float in2, String in3) {
-
-
         IngredientsList.add(new Ingredients_item(in1,in3,in2));
-
         Log.i("Marta AddItem", IngredientsList.get(0).getText());
-
     }
 
     @Override
@@ -244,7 +220,6 @@ public class IngredientsActivity extends AppCompatActivity {
                 ArrayList<Integer> number = new ArrayList<Integer>();
 
                 for ( i=0; i<IngredientsList.size();i++){
-
                     String ingname = IngredientsList.get(i).getText();
                     int num = (int) IngredientsList.get(i).getNumber();
                     String uni = IngredientsList.get(i).getUnits();

@@ -13,7 +13,7 @@
     <string name="compartir">Share</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_add">Name the new recipe</string>
-    <string name="confirm_clear_all">Are you sure you want to delete all ?</string>
+    <string name="confirm_clear_all">Are you sure you want to delete all?</string>
     <string name="copia_codigo">Copy next code:</string>
     <string name="crear_nueva_lista">Create new list</string>
     <string name="eliminar">Delete</string>
@@ -23,7 +23,7 @@
     <string name="recetas">Recipes</string>
     <string name="search_recipe">Write the name of recipe</string>
     <string name="seguro_cerrar">Are you sure you want to close de sesion?</string>
-    <string name="seguro_eliminar">Are you sure you want to delete the item?</string>
+    <string name="seguro_eliminar">Are you sure you want to delete this item?</string>
     <string name="si">Yes</string>
     <string name="unidades">Units</string>
     <string name="unirse">Join</string>
@@ -36,4 +36,5 @@
     <string name="nombre_item">Name of item</string>
     <string name="nombre_ingrediente">Name of ingredient</string>
     <string name="confirm_message">Are you sure you want to remove \'%1$s\'?</string>
+    <string name="seguro_eliminar2">Are you sure you want to delete this ingredient?</string>
 </resources>

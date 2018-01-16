@@ -7,8 +7,8 @@
 
     <string name="confirm_add">Introduce el nombre de la nueva receta</string>
 
-    <string name="clear_checked">Eliminar items seleccionados</string>
-    <string name="clear_all">Eliminar todos los ingredients</string>
+    <string name="clear_checked">Eliminar recetas seleccionadas</string>
+    <string name="clear_all">Eliminar todas las recetas</string>
     <string name="add_shoppinglist">Añadir items a la Shopping List</string>
     <string name="confirm_clear_all">Seguro que quiere eliminar todos los ingredientes?</string>
     <string name="search_recipe">Write the name of the recipe</string>
@@ -38,4 +38,5 @@
     <string name="seguro_cerrar">¿Seguro que desea cerrar la sesión?</string>
     <string name="eliminar_datos">Se eliminarán todo los datos</string>
     <string name="wewant2cook">WeWant2Cook</string>
+    <string name="seguro_eliminar2">Seguro que desea eliminar este ingrediente? </string>
 </resources>

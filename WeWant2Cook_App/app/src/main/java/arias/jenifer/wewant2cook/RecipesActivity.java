@@ -1,26 +1,17 @@
 package arias.jenifer.wewant2cook;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,7 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class RecipesActivity extends AppCompatActivity {
@@ -159,7 +149,6 @@ public class RecipesActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 String in = input.getText().toString();
 
                 if (!in.isEmpty()){
@@ -197,6 +186,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                     //readRecipesList();
                     String Recipe = data.getStringExtra("name");
+                    RecipesList.add(new Recipes_item(Recipe, false)); //JENNI
 
                     Log.i("Marta","ReadRecipesList()");
 
@@ -262,7 +252,6 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void SearchRecipe() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
         builder.setView(input);
