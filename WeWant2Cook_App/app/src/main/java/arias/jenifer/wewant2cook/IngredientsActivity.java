@@ -58,6 +58,8 @@ public class IngredientsActivity extends AppCompatActivity {
             }
             fos.close();
 
+
+
         } catch (FileNotFoundException e) {
             Log.e("Marta", "writeItemList filenotfound");
             Toast.makeText(this, R.string.cannotwrite, Toast.LENGTH_SHORT).show();
@@ -69,7 +71,8 @@ public class IngredientsActivity extends AppCompatActivity {
     }
 
     private void readIngredientsList(){
-      //  IngredientsList = new ArrayList<>();
+        //  IngredientsList = new ArrayList<>();
+        Log.i("Marta", "dins readIngreients I");
         try {
             FileInputStream fis = openFileInput(FILENAME_INGR);
             byte[] buffer_i = new byte[MAX_BYTES];
@@ -78,18 +81,19 @@ public class IngredientsActivity extends AppCompatActivity {
             if (nread>0) {
                 String content = new String(buffer_i, 0, nread);
                 String[] lines = content.split("\n");
+
                 for (String line : lines) {
+
                     String[] parts = line.split(";");
+                    Log.i("Marta Què llegeix I: ", line);
 
                     if ( parts[0].equals(recipe_name)){
+                        Log.i("Marta Recipe NAme", recipe_name + "==?" + parts[0]);
+
                         String[] parts2 = parts[3].split(",");
 
-                        Log.i("Marta Parts2", Float.valueOf(parts2[0])+"");
                         addItem(parts[1],Float.valueOf(parts2[0]),parts[2]);
-
                     }
-
-                    Log.i("Marta", "Dins readIngredients");
 
                 }
                 fis.close();
@@ -108,9 +112,19 @@ public class IngredientsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-       writeIngredientsList();
+        writeIngredientsList();
+        Log.i("Marta", "onStop Ingredients");
+
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //writeIngredientsList();
+
+        Log.i("Marta", "onDestroy Ingredients");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +145,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
         list.setAdapter(ingredient_adapter);
 
-       // IngredientsList.add(new Ingredients_item("Pa","Barres",2));
+        // IngredientsList.add(new Ingredients_item("Pa","Barres",2));
 
         Intent intent = getIntent();
         recipe_name = intent.getStringExtra("name");
@@ -210,7 +224,7 @@ public class IngredientsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options,menu); 
+        inflater.inflate(R.menu.options,menu);
         return true;
     }
 

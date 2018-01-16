@@ -95,7 +95,7 @@ public class RecipesActivity extends AppCompatActivity {
                 for (String line : lines) {
                     String[] parts = line.split(";");
                     RecipesList.add(new Recipes_item(parts[0], parts[1].equals("true")));
-                    Log.i("Marta Què llegeix: ", line);
+                    Log.i("Marta Què llegeix R", line);
                 }
                 fis.close();
             }
@@ -112,7 +112,7 @@ public class RecipesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Marta", "onStop()");
+        Log.i("Marta", "onStop() Recipes");
         writeCode();
         writeRecipesList();
     }
@@ -161,9 +161,16 @@ public class RecipesActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String in = input.getText().toString();
-                RecipesList.add(new Recipes_item(in, false));
 
-                saveRecipe(input.getText().toString());
+                if (!in.isEmpty()){
+                    RecipesList.add(new Recipes_item(in, false));
+                    saveRecipe(input.getText().toString());
+                    recipes_adapter.notifyDataSetChanged();
+                    list.smoothScrollToPosition(RecipesList.size()-1);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), R.string.completar_campos, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -255,7 +262,28 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void SearchRecipe() {
-        // TODO Búsqueda de recetas ( V8)
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setTitle(R.string.confirm_add);
+
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                String in = input.getText().toString();
+                for ( int pos = 0 ; pos < RecipesList.size(); pos ++ ){
+                    if (in.equals(RecipesList.get(pos).getText()) ){
+                        list.smoothScrollToPosition(pos);
+                    }
+                }
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancelar, null);
+        builder.show();
     }
 
     private void add_shppinglist(String ingre, String num, String unidades) {
@@ -333,5 +361,7 @@ public class RecipesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         writeCode();
+        writeRecipesList();
+        Log.i("Marta", "onDestroy Recipes");
     }
 }
