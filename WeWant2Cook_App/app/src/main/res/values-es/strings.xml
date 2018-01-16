@@ -35,7 +35,7 @@
     <string name="wewant2cook">WeWant2Cook</string>
     <string name="nombre_item">Nombre del artículo</string>
     <string name="nombre_ingrediente">Nombre del ingrediente</string>
-    <string name="confirm_message">¿Seguro que quiere eliminar \'%1$s\'?</string>
+    <string name="confirm_message">¿Seguro que quiere eliminar \'%s\'?</string>
     <string name="seguro_eliminar2">Seguro que desea eliminar este ingrediente?</string>
     <string name="completar_bien_campos">Tienes que insertar un numero!</string>
 </resources>

@@ -45,11 +45,13 @@ public class IngredientsActivity extends AppCompatActivity {
     private static final int MAX_BYTES = 800000;
    // String lines_before;
     byte[] buffer_i = new byte[MAX_BYTES];
+    ArrayList<String> lines_before = new ArrayList<>();
 
-    String content = new String(buffer_i);
+    private int pos;
 
 
-    private void writeIngredientsList(){
+
+   /* private void writeIngredientsList(){
         Log.i("Marta dins writeI", FILENAME_INGR.length()+"");
 
         try {
@@ -61,8 +63,15 @@ public class IngredientsActivity extends AppCompatActivity {
             for (int i=0; i < IngredientsList.size(); i++){
                 Ingredients_item it = IngredientsList.get(i);
                 String line = String.format("%s;%s;%s;%f\n", recipe_name, it.getText(), it.getUnits(),it.getNumber());
-                fos.write(line.getBytes());
+
+                lines_before.add(line);
+
+                //fos.write(lines_before.getBytes());
                 Log.i("Marta Què escriu", line);
+            }
+
+            for ( int pos = 0; pos < lines_before.size(); pos ++){
+                fos.write(lines_before.get(pos).getBytes());
             }
 
             fos.close();
@@ -81,16 +90,18 @@ public class IngredientsActivity extends AppCompatActivity {
         Log.i("Marta", "dins readIngreients I");
         try {
             FileInputStream fis = openFileInput(FILENAME_INGR);
-            byte[] buffer_i = new byte[MAX_BYTES];
+            //byte[] buffer_i = new byte[MAX_BYTES];
             int nread = fis.read(buffer_i);
 
             if (nread>0) {
-                content = new String(buffer_i, 0, nread);
+                String content = new String(buffer_i, 0, nread);
                 String[] lines = content.split("\n");
               //  lines_before = content.split("\n");
 
                 Log.i("Marta lines ", lines.length+"");
                 Log.i("Marta lines", lines[0]);
+
+
 
                 for (String line : lines) {
                     String[] parts = line.split(";");
@@ -98,7 +109,15 @@ public class IngredientsActivity extends AppCompatActivity {
                     Log.i("Marta Part[0]", parts[0]);
                     Log.i("Marta Recipe", recipe_name);
 
-                    if ( parts[0].equals(recipe_name)){
+                    for( int arraypos = 0 ; arraypos<lines_before.size(); arraypos++ ){
+                        if (lines_before.get(arraypos).split(";").equals(recipe_name)){
+
+                            addItem(parts[1],Float.valueOf(parts[3]),parts[2]);
+
+                        }
+                    }
+
+                   /* if ( parts[0].equals(recipe_name)){
                         Log.i("Marta Recipe NAme", recipe_name + "==?" + parts[0]);
 
                         String[] parts2 = parts[3].split(",");
@@ -117,12 +136,12 @@ public class IngredientsActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.cannotread, Toast.LENGTH_SHORT).show();
         }
 
-    }
+    }*/
 
     @Override
     protected void onStop() {
         super.onStop();
-        writeIngredientsList();
+       // writeIngredientsList();
         Log.i("Marta", "onStop Ingredients");
 
 
@@ -158,8 +177,42 @@ public class IngredientsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         recipe_name = intent.getStringExtra("name");
+        pos = intent.getIntExtra("pos",0);
+
+        lines_before = intent.getStringArrayListExtra("item");
+
+        //it.getLista_ingr().get(i);
+       // String line = String.format("%s;%b;%s\n", it.getText(), it.isChecked(),con);
+
+        ArrayList<String> ingN = new ArrayList<>();
+        int var = 0;
+
+        //String[] m = lines_before.get(0).split("_");
+
+            /*Ingredients_item item = new Ingredients_item(lines_before.get(0), lines_before.get(2), Float.parseFloat(lines_before.get(1)));
+            item.setUnits(lines_before.get(2));
+            item.setNumber(Float.parseFloat(lines_before.get(1)));
+            item.setName(lines_before.get(0));
+            IngredientsList.add(item);*/
+
+
+
+            /*Ingredients_item item = new Ingredients_item(ingN[0], ingN[2],Float.parseFloat(ingN[1]));
+            item.setUnits(ingN[2]);
+            item.setNumber(Float.parseFloat(ingN[1]));
+            item.setName(ingN[0]);*/
+
+//            var = var +3;
+
+
+
+
+
         titulo_ingrediente.setText(recipe_name);
-        readIngredientsList();
+       // readIngredientsList();
+
+
+
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,8 +252,6 @@ public class IngredientsActivity extends AppCompatActivity {
                         String in1 =input.getText().toString();
                         String in3 = input2.getText().toString();
 
-                        //if(Float.parseFloat(input1.getText().toString()) )
-
                         if(input1.getText().toString().isEmpty()){
                             in2 = 0;
                         }
@@ -208,6 +259,7 @@ public class IngredientsActivity extends AppCompatActivity {
 
                         if(!in1.isEmpty()&&!in3.isEmpty()&&in2!=0) {
                             addItem(in1, in2, in3);
+                            lines_before.add(in1+"_"+in2+"_"+in3);
 
                             dialog.cancel();
                         }else{
@@ -260,6 +312,8 @@ public class IngredientsActivity extends AppCompatActivity {
                 data.putExtra("ingredient",ing);
                 data.putExtra("number",number);
                 data.putExtra("units",units);
+
+                data.putExtra("ArrayIngredients", lines_before);
 
                 setResult(RESULT_OK, data);
                 finish();

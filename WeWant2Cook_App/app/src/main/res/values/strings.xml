@@ -40,4 +40,5 @@
     <string name="wewant2cook">WeWant2Cook</string>
     <string name="seguro_eliminar2">Seguro que desea eliminar este ingrediente? </string>
     <string name="completar_bien_campos">You have to insert a number!</string>
+    <string name="confirm_message">Are you sure you want to remove \'%s\'?</string>
 </resources>

@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -41,6 +42,7 @@ public class RecipesActivity extends AppCompatActivity {
     ArrayList<String> ing = new ArrayList<String>();
     ArrayList<String> units = new ArrayList<String>();
     ArrayList<Integer> number = new ArrayList<Integer>();
+    ArrayList<String> ArrayIng = new ArrayList<>();
 
     private ArrayList<String> IngredientsRecipies = new ArrayList<>();
 
@@ -49,7 +51,7 @@ public class RecipesActivity extends AppCompatActivity {
     private ChildEventListener mListener;
     private int code;
 
-    private static final String  FILENAME_RECP = "recipes.txt";
+    private static final String  FILENAME_RECP = "fich_Reci.txt";
     private static final int MAX_BYTES = 80000;
 
     private void writeRecipesList(){
@@ -58,7 +60,13 @@ public class RecipesActivity extends AppCompatActivity {
             FileOutputStream fos = openFileOutput(FILENAME_RECP, Context.MODE_PRIVATE);
             for (int i=0; i < RecipesList.size(); i++){
                 Recipes_item it = RecipesList.get(i);
-                String line = String.format("%s;%b\n", it.getText(), it.isChecked());
+                String con = it.getLista_ingr().toString();
+                for (int y =1; y < it.getLista_ingr().size(); y ++){
+                    con = con +"_"+ it.getLista_ingr();
+
+                }
+                //it.getLista_ingr().get(i);
+                String line = String.format("%s;%b;%s\n", it.getText(), it.isChecked(),con);
                // Log.i("Marta què escriu R", line);
                 fos.write(line.getBytes());
             }
@@ -85,7 +93,14 @@ public class RecipesActivity extends AppCompatActivity {
                 String[] lines = content.split("\n");
                 for (String line : lines) {
                     String[] parts = line.split(";");
-                    RecipesList.add(new Recipes_item(parts[0], parts[1].equals("true")));
+                    ArrayList<String> array = new ArrayList<String>();
+                    String c = parts[2];
+                    String[] xx =c.split("_");
+                    for(int var = 0; var < xx.length; var ++){
+                        array.add(xx[var]);
+                    }
+
+                    RecipesList.add(new Recipes_item(parts[0], parts[1].equals("true"),array));
                    // Log.i("Marta Què llegeix R", line);
                 }
                 fis.close();
@@ -138,6 +153,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
     }
+    private Recipes_item itemR;
 
     private void add_r() {
 
@@ -153,8 +169,11 @@ public class RecipesActivity extends AppCompatActivity {
                 String in = input.getText().toString();
 
                 if (!in.isEmpty()){
-                    RecipesList.add(new Recipes_item(in, false));
-                    saveRecipe(input.getText().toString());
+                    ArrayList<String> array = new ArrayList<String>();
+                    //Recipes_item item = new Recipes_item(in, false,  array);
+                    itemR = new Recipes_item(in, false,  array);
+                    RecipesList.add(itemR);
+                    saveRecipe(input.getText().toString(), itemR);
                     recipes_adapter.notifyDataSetChanged();
                     list.smoothScrollToPosition(RecipesList.size()-1);
                 }
@@ -168,13 +187,16 @@ public class RecipesActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void saveRecipe(String n) {
+    public void saveRecipe(String n, Recipes_item item) {
         // Anem a IngredientsActivity
         Log.i("Marta", "SaveRecipe()");
 
         Intent intent = new Intent(RecipesActivity.getAppContext(), IngredientsActivity.class);
         intent.putExtra("name", n);
         intent.putExtra("code", code);
+        intent.putExtra("ArrayIngredients", ArrayIng);
+        intent.putExtra("item", item.getLista_ingr());
+
         startActivityForResult(intent, 0);
     }
 
@@ -190,12 +212,32 @@ public class RecipesActivity extends AppCompatActivity {
                     ArrayList<String> ingredientName = data.getStringArrayListExtra("ingredient");
                     ArrayList<Integer> ingredientNumber = data.getIntegerArrayListExtra("number");
                     ArrayList<String> ingredientUnits = data.getStringArrayListExtra("units");
+                    ArrayList<String> ArrayIng = data.getStringArrayListExtra("ArrayIngredients");
 
                     for (int i = 0; i < ingredientName.size(); i++) {
 
                         String ingname = ingredientName.get(i);
                         Integer num = ingredientNumber.get(i);
                         String uni = ingredientUnits.get(i);
+
+                        int var = 0;
+                        ArrayList<String> lista = new ArrayList<>();
+
+
+                            String[] ingN = ArrayIng.get(i).split("_");
+
+                           /* Ingredients_item item = new Ingredients_item(ingN[0], ingN[2],Float.parseFloat(ingN[1]));
+                            item.setUnits(ingN[2]);
+                            item.setNumber(Float.parseFloat(ingN[1]));
+                            item.setName(ingN[0]);
+
+                           // lista.add(item);
+//                            var = var +3;*/
+
+
+
+                        itemR.setLista_ingr(ArrayIng);
+
 
                         ing.add(ingname);
                         units.add(uni);
@@ -204,6 +246,8 @@ public class RecipesActivity extends AppCompatActivity {
                         String concat = Recipe+";"+ingname+";"+num+";"+uni;
                         IngredientsRecipies.add(concat);
                     }
+
+
                 }
         }
     }

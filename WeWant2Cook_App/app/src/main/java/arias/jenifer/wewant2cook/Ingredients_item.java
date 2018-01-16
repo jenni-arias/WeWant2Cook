@@ -32,6 +32,9 @@ public class Ingredients_item {
         this.number=number;
     }
     public void setUnits (String units){ this.units = units; }
+    public void setName(String ingredientNAme) {
+        this.ingredientNAme=ingredientNAme;
+    }
 
     public Ingredients_item(String units) {
         this.units = units;

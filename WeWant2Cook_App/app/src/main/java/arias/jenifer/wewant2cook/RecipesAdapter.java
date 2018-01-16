@@ -35,7 +35,7 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View result = convertView;
         mContext = parent.getContext();
@@ -53,7 +53,7 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         checkbox.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                saveRecipe(item.getText());
+                saveRecipe(item.getText(), position ,item.getLista_ingr());
                 return true;
             }
         });
@@ -67,10 +67,15 @@ public class RecipesAdapter extends ArrayAdapter<Recipes_item> {
         return result;
     }
 
-    public void saveRecipe(String n) {
+    public void saveRecipe(String n, int pos, ArrayList<String> item) {
         // Anem a IngredientsActivity
         Intent intent = new Intent(context, IngredientsActivity.class);
         intent.putExtra("name", n);
+        intent.putExtra("pos", pos);
+        //intent.putExtra("item", item.getLista_ingr());
+        intent.putExtra("item", item);
+
+        //((Activity) mContext).startActivity(intent);
 
         ((Activity) mContext).startActivityForResult(intent,0);
 

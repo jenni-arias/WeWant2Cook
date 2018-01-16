@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import static arias.jenifer.wewant2cook.RecipesActivity.context;
 
 
@@ -12,11 +14,13 @@ public class Recipes_item {
 
         private String text;
         private boolean checked;
+        private ArrayList<String> lista_ingr;
 
 
-        public Recipes_item(String text, boolean checked) {
+        public Recipes_item(String text, boolean checked,ArrayList<String> array) {
             this.text = text;
             this.checked = checked;
+            this.lista_ingr = array;
         }
 
         public String getText() {
@@ -40,8 +44,13 @@ public class Recipes_item {
         }
 
 
+    public ArrayList<String> getLista_ingr() {
+        return lista_ingr;
+    }
 
-
+    public void setLista_ingr(ArrayList<String> lista_ingr) {
+        this.lista_ingr = lista_ingr;
+    }
 }
 
 
